@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes} from "react-router-dom";
+import SignInSide from "./components/pages/SingInSide";
+import SignUpSide from "./components/pages/SingUpSide";
+import Catalog from "./components/pages/Catalog";
+import Construct from "./components/pages/Construct";
+import AddQuestions from "./components/pages/AddQuestions";
+import AddResults from "./components/pages/AddResults";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <BrowserRouter>
+            <Routes>
+            {/*<Route exact path="/"*/}
+            {/*       render={(props) => <PollList isAuthenticated={this.state.isAuthenticated}*/}
+            {/*                                    currentUser={this.state.currentUser} handleLogout={this.handleLogout} {...props} />}>*/}
+            {/*</Route>*/}
+            {/*<Route path="/login"*/}
+            {/*       render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>*/}
+            <Route path="/registration" element={<SignUpSide/>}/>
+            <Route path="/login" element={<SignInSide/>}/>
+            <Route path="/catalog" element={<Catalog/>}/>
+            <Route path="/construct" element={<Construct/>}/>
+            <Route path="/construct/addQuestions" element={<AddQuestions/>}/>
+            <Route path="/construct/addResults" element={<AddResults/>}/>
+            {/*<Route path="/users/:username"*/}
+            {/*       render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props}  />}>*/}
+            {/*</Route>*/}
+    </Routes>
+        </BrowserRouter>
     </div>
   );
 }
