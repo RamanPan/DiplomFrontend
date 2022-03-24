@@ -6,7 +6,7 @@ export const ACCESS_TOKEN = 'accessToken';
 
 export const roles = ['Студент', 'Преподаватель'];
 export const pages = ['Каталог', 'Конструктор', 'Топ'];
-export const settings = ['Профиль','Выход'];
+export const settings = ['Личный кабинет','Выход'];
 export const types = ['Схоластический','Детерменированный','Динамический'];
 export const questionTypes = ['Закрытый','Открытый','Несколько вариантов'];
 

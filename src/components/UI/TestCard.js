@@ -22,7 +22,7 @@ const TestCard = (props) => {
         setExpanded(!expanded);
     };
     return (
-        <Card sx={{ maxWidth: 300, height: 450, borderRadius: "15px",backgroundColor: "#F1DCC9" }}>
+        <Card sx={{ width: 270, height: 450, borderRadius: "15px",backgroundColor: "#F1DCC9" }}>
             {/*<CardHeader*/}
             {/*    avatar={*/}
             {/*        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">*/}
