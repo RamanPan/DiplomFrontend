@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -12,18 +12,45 @@ import {Autocomplete} from "@mui/material";
 import themeMy from "../utils/themeMy";
 import Image from "../../resources/fon.jpeg";
 import Paper from "@mui/material/Paper";
-import {roles} from "../utils/constans"
+import {API_REGISTER, roles} from "../utils/constans"
+import {useState} from "react";
+import ApiCalls, {createUser} from "../utils/apiCalls";
 
+import {useHistory} from 'react-router-dom';
+import {useNavigate} from "react-router";
+
+// function postReg(path, data) {
+//     const request = fetch(`${path}`,{
+//         method:'POST',
+//         body:JSON.stringify(data),
+//         headers:{
+//             'Content-Type': 'application/json',
+//         }
+//     });
+//     return request.json();
+// }
 export default function SignUp() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+    const [regState,setRegState] = useState();
+    const [role,setRole] = useState(roles[0]);
+    const [isSignUp,setSignUp] = useState(false);
+    const navigate = useNavigate()
+
+    const updateRegState = (event) => {
+        const {value, name} = event.target;
+        setRegState(prevRegState => ({
+            ...prevRegState,
+            role,
+            [name]: value,
+        }));
     };
 
+    const handleSubmit = () => {
+        createUser(regState).then()
+        setSignUp(true);
+    };
+    if(isSignUp) {
+       navigate("/login");
+    }
     return (
         <ThemeProvider theme={themeMy}>
             <Grid container component="main"
@@ -49,27 +76,27 @@ export default function SignUp() {
                             <Typography component="h1" variant="h2">
                                 РЕГИСТРАЦИЯ
                             </Typography>
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                            <Box component="form" noValidate sx={{ mt: 3 }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
+                                    <Grid item xs={12}>
                                         <TextField
                                             autoComplete="given-name"
-                                            name="firstName"
+                                            name="fullname"
                                             required
+                                            onChange={updateRegState}
                                             fullWidth
-                                            id="firstName"
-                                            label="Имя"
+                                            id="fullname"
+                                            label="ФИО"
                                             autoFocus
                                         />
                                     </Grid>
-                                    <Grid item xs={12} sm={6}>
+                                    <Grid item xs={12}>
                                         <TextField
                                             required
                                             fullWidth
-                                            id="lastName"
-                                            label="Фамилия"
-                                            name="lastName"
-                                            autoComplete="family-name"
+                                            label="Логин"
+                                            name="nickname"
+                                            onChange={updateRegState}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -79,6 +106,7 @@ export default function SignUp() {
                                             id="email"
                                             label="Email"
                                             name="email"
+                                            onChange={updateRegState}
                                             autoComplete="email"
                                         />
                                     </Grid>
@@ -90,21 +118,28 @@ export default function SignUp() {
                                             label="Пароль"
                                             type="password"
                                             id="password"
+                                            onChange={updateRegState}
                                             autoComplete="new-password"
                                         />
                                     </Grid>
                                     <Grid item xs={14}>
                                         <Autocomplete
-                                            disablePortal
                                             id="combo-box-roles"
+                                            value={role}
                                             options={roles}
-                                            color="secondary"
-                                            renderInput={(params) => <TextField {...params} label="Роль" />}
+                                            onChange={(event,newValue) => {
+                                                setRole(newValue);
+                                                console.log(newValue)
+                                            }}
+                                            name = "role"
+                                            color= "secondary"
+
+                                            renderInput={(params) => <TextField {...params} name = "role" label="Роль" />}
                                         />
                                     </Grid>
                                 </Grid>
                                 <Button
-                                    type="submit"
+                                    onClick={handleSubmit}
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >

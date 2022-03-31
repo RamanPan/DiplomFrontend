@@ -15,6 +15,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import GridViewIcon from '@mui/icons-material/GridView';
 import {pages, settings} from "../utils/constans"
 import { useHistory, Link } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -29,12 +30,7 @@ const Navigation = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-    const handleClick = (props) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        return (
-            <Link to = '/catalog'/>
-        )
-    };
+
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -139,12 +135,17 @@ const Navigation = () => {
                             }}
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                        ><Button
+                                component={Link} to = '/catalog'
+
+                            ><Typography sx={{  }}> Личный кабинет</Typography></Button>
+                            <Grid container>
+                            <Button sx = {{}}
+                                component={Link} to = '/login'
+                                >
+                                <Typography sx={{  }}> Выйти</Typography>
+                                </Button>
+                            </Grid>
                         </Menu>
                     </Box>
                 </Toolbar>

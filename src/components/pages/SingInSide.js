@@ -13,22 +13,46 @@ import Typography from '@mui/material/Typography';
 import { ThemeProvider, styled } from '@mui/material/styles';
 import Image from '../../resources/fon.jpeg'
 import themeMy from "../utils/themeMy";
-import {Link} from "react-router-dom";
+import {Link, Navigate, Redirect} from "react-router-dom";
+
+import {observer} from "mobx-react-lite";
+import useStore from "../utils/useStore";
+import {useState} from "react";
+import {createUser, loginUser} from "../utils/apiCalls";
+import {useNavigate} from "react-router";
 
 
 const theme = themeMy;
 
 
-export default function SignInSide() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+function SignInSide() {
+    const {usersStore} = useStore();
+    const {ActualUser} = useStore();
+    const [logState,setLogState] = useState();
+    const [signIn,setSingIn] = useState(false);
+    const [qwerty,setDate] = useState({})
+    const navigate = useNavigate();
+
+    const updateLogState = (event) => {
+        const {value, name} = event.target;
+
+        setLogState(prevLogState => ({
+            ...prevLogState,
+            [name]: value,
+        }));
     };
 
+    const handleSubmit = async () => {
+        // await loginUser(logState).then(response => {setDate(Object.assign(qwerty, qwerty, response))});
+        // setData(Object.assign(data, data, actual))
+        await usersStore.login(logState)
+        // console.log(data['id']);
+        // ActualUser.create(data['id'], data['created'], data['nickname'], data['fullname'], data['email'], data['role'], data['description'], data['picture'], data['token']);
+        // setSingIn(true)
+    };
+    if(signIn) {
+        navigate("/catalog");
+    }
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main"
@@ -60,6 +84,7 @@ export default function SignInSide() {
                                 required
                                 fullWidth
                                 id="login"
+                                onChange={updateLogState}
                                 label="Введите логин"
                                 name="login"
                                 autoComplete="login"
@@ -69,6 +94,7 @@ export default function SignInSide() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                onChange={updateLogState}
                                 name="password"
                                 label="Пароль"
                                 type="password"
@@ -80,7 +106,7 @@ export default function SignInSide() {
                             {/*    label="Remember me"*/}
                             {/*/>*/}
                             <Button
-                                type="submit"
+                                onClick={handleSubmit}
                                 fullWidth
                                 variant="contained"
                                 color="primary"
@@ -103,3 +129,5 @@ export default function SignInSide() {
         </ThemeProvider>
     );
 }
+
+export default observer(SignInSide);
