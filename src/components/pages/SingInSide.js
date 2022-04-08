@@ -22,20 +22,21 @@ import {createUser, loginUser} from "../utils/apiCalls";
 import {useNavigate} from "react-router";
 
 
+
 const theme = themeMy;
-
-
+export var ACCESS_TOKEN;
+export var NICKNAME = undefined;
+export var PICTURE = " ";
+export var PASSWORD;
 function SignInSide() {
     const {usersStore} = useStore();
-    const {ActualUser} = useStore();
     const [logState,setLogState] = useState();
     const [signIn,setSingIn] = useState(false);
-    const [qwerty,setDate] = useState({})
     const navigate = useNavigate();
 
     const updateLogState = (event) => {
         const {value, name} = event.target;
-
+        if(name === "password") PASSWORD = value;
         setLogState(prevLogState => ({
             ...prevLogState,
             [name]: value,
@@ -43,12 +44,12 @@ function SignInSide() {
     };
 
     const handleSubmit = async () => {
-        // await loginUser(logState).then(response => {setDate(Object.assign(qwerty, qwerty, response))});
-        // setData(Object.assign(data, data, actual))
         await usersStore.login(logState)
-        // console.log(data['id']);
-        // ActualUser.create(data['id'], data['created'], data['nickname'], data['fullname'], data['email'], data['role'], data['description'], data['picture'], data['token']);
-        // setSingIn(true)
+        if(usersStore.me !== undefined) {
+            ACCESS_TOKEN = usersStore.me.token;
+            NICKNAME = usersStore.me.nickname;
+            PICTURE = usersStore.me.picture;
+            setSingIn(true)}
     };
     if(signIn) {
         navigate("/catalog");

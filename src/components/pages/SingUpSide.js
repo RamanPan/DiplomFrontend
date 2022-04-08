@@ -14,7 +14,7 @@ import Image from "../../resources/fon.jpeg";
 import Paper from "@mui/material/Paper";
 import {API_REGISTER, roles} from "../utils/constans"
 import {useState} from "react";
-import ApiCalls, {createUser} from "../utils/apiCalls";
+import ApiCalls, {createUser, postReq} from "../utils/apiCalls";
 
 import {useHistory} from 'react-router-dom';
 import {useNavigate} from "react-router";
@@ -45,8 +45,9 @@ export default function SignUp() {
     };
 
     const handleSubmit = () => {
-        createUser(regState).then()
-        setSignUp(true);
+        postReq(API_REGISTER,regState).then(response => {
+            setSignUp(true)
+        })
     };
     if(isSignUp) {
        navigate("/login");
@@ -77,6 +78,22 @@ export default function SignUp() {
                                 РЕГИСТРАЦИЯ
                             </Typography>
                             <Box component="form" noValidate sx={{ mt: 3 }}>
+                                <Grid item xs={14}>
+                                    <Autocomplete
+                                        id="combo-box-roles"
+                                        value={role}
+                                        options={roles}
+                                        onChange={(event,newValue) => {
+                                            setRole(newValue);
+                                            console.log(newValue)
+                                        }}
+                                        sx = {{mb: 2}}
+                                        name = "role"
+                                        color= "secondary"
+
+                                        renderInput={(params) => <TextField {...params} name = "role" label="Роль" />}
+                                    />
+                                </Grid>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextField
@@ -122,21 +139,7 @@ export default function SignUp() {
                                             autoComplete="new-password"
                                         />
                                     </Grid>
-                                    <Grid item xs={14}>
-                                        <Autocomplete
-                                            id="combo-box-roles"
-                                            value={role}
-                                            options={roles}
-                                            onChange={(event,newValue) => {
-                                                setRole(newValue);
-                                                console.log(newValue)
-                                            }}
-                                            name = "role"
-                                            color= "secondary"
 
-                                            renderInput={(params) => <TextField {...params} name = "role" label="Роль" />}
-                                        />
-                                    </Grid>
                                 </Grid>
                                 <Button
                                     onClick={handleSubmit}

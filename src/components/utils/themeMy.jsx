@@ -71,6 +71,9 @@ export const themeMy = createTheme({
         },
         another: {
             main: '#9F4636'
+        },
+        accept: {
+            main: '#56F43C'
         }},
     typography: {
         fontFamily: 'Forum',

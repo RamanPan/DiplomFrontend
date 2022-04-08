@@ -16,9 +16,23 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import {pages, settings} from "../utils/constans"
 import { useHistory, Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import useStore from "../utils/useStore";
+import {useNavigate} from "react-router";
+import {NICKNAME, PICTURE} from "../pages/SingInSide";
+import {useEffect, useState} from "react";
+import {PICTURE_UPDATE} from "../pages/UpdateUser";
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [pathPicture, setPathPicture] = useState("http://localhost:8081/images/users/default_avatar.png");
+    const {usersStore} = useStore();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
+        if(PICTURE_UPDATE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)}
+
+    });
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -31,7 +45,10 @@ const Navigation = () => {
         setAnchorElNav(null);
     };
 
-
+    const handleSubmit = () => {
+        usersStore.exit();
+        navigate("/login")
+    }
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
@@ -105,19 +122,19 @@ const Navigation = () => {
                             >
                                 <Typography sx={{ fontSize: 20 }}> <CreateIcon sx={{ fontSize: 20 }}/> Конструктор</Typography>
                             </Button>
-                            <Button
-                                onClick={{}}
-                                sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}
-                            >
-                                <Typography sx={{ fontSize: 20 }}> Топ</Typography>
-                            </Button>
+                            {/*<Button*/}
+                            {/*    onClick={{}}*/}
+                            {/*    sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}*/}
+                            {/*>*/}
+                            {/*    <Typography sx={{ fontSize: 20 }}> Топ</Typography>*/}
+                            {/*</Button>*/}
 
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Подробнее">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar src={pathPicture}/>
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -136,12 +153,12 @@ const Navigation = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         ><Button
-                                component={Link} to = '/catalog'
+                                component={Link} to ="/lk"
 
                             ><Typography sx={{  }}> Личный кабинет</Typography></Button>
                             <Grid container>
                             <Button sx = {{}}
-                                component={Link} to = '/login'
+                                    onClick={handleSubmit}
                                 >
                                 <Typography sx={{  }}> Выйти</Typography>
                                 </Button>

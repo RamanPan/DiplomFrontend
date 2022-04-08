@@ -9,6 +9,7 @@ import {questionTypes, types} from "../utils/constans";
 import Paper from "@mui/material/Paper";
 import Answer from "./Answer";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {observer} from "mobx-react-lite";
 
 function valuetext(value) {
     return `${value}`;
@@ -87,4 +88,4 @@ const Result = (props) => {
     );
 };
 
-export default Result;
+export default observer(Result);

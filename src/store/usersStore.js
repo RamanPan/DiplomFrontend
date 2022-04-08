@@ -1,5 +1,7 @@
 import {flow, types} from 'mobx-state-tree';
-import {loginUser} from "../components/utils/apiCalls";
+import {getReq, postReq} from "../components/utils/apiCalls";
+import {API_ACTUAL_USER, API_LOGIN, API_LOGOUT} from "../components/utils/constans";
+import {ACCESS_TOKEN, NICKNAME} from "../components/pages/SingInSide";
 
 export const User = types
     .model('User',{
@@ -20,23 +22,19 @@ export const User = types
 
 export const ActualUser = types
     .model('ActualUser',{
-        id: types.maybe(types.identifierNumber),
-        created: types.maybe(types.Date),
-        nickname: types.maybe(types.string),
-        fullname: types.maybe(types.string),
-        email: types.maybe(types.string),
-        role: types.maybe(types.string),
-        description: types.maybe(types.string),
-        picture: types.maybe(types.string),
-        token: types.maybe(types.string),
+        id: types.identifierNumber,
+        created: types.string,
+        nickname: types.string,
+        fullname: types.string,
+        email: types.string,
+        role: types.string,
+        description: types.string,
+        picture: types.string,
+        token: types.string,
 
     })
-
 ;
-export const Token = types
-    .model('Token',{
-        statement: types.string,
-    })
+
 
 
 const UsersStore = types
@@ -48,8 +46,18 @@ const UsersStore = types
     .actions(self => {
         return{
             login: flow(function* (data) {
-                self.me = yield loginUser(data)
-            })
+                self.me = yield postReq(API_LOGIN, data)
+            }),
+            exit: flow(function* () {
+                let i = yield getReq(API_LOGOUT);
+                self.me = undefined
+            }),
+            needUser: flow(function* (data) {
+                let actual = yield postReq(API_ACTUAL_USER,data);
+                actual["token"] = ACCESS_TOKEN;
+                console.log(actual)
+                self.me = actual;
+            }),
         }
     })
 ;
