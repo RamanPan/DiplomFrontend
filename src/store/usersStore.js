@@ -30,6 +30,8 @@ export const ActualUser = types
         role: types.string,
         description: types.string,
         picture: types.string,
+        countPassed: types.number,
+        countCreated: types.number,
         token: types.string,
 
     })

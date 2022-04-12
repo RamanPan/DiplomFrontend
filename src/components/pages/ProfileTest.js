@@ -10,10 +10,14 @@ import {NICKNAME, PICTURE} from "./SingInSide";
 import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import {PICTURE_UPDATE} from "./UpdateUser";
+import useStore from "../utils/useStore";
+import {TESTS_FOR_PROFILE} from "./Profile";
+import TestCreatorCard from "../UI/TestCreatorCard";
 
 const ProfileTest = () => {
     const navigate = useNavigate()
     const [pathPicture, setPathPicture] = useState("http://localhost:8081/images/users/default_avatar.png");
+    const {testsStore} = useStore();
     useEffect(() => {
         if(NICKNAME === undefined) navigate("/login")
         if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
@@ -44,13 +48,13 @@ const ProfileTest = () => {
                         <Button>Результаты</Button>
                         <Button>Тесты</Button>
                     </ButtonGroup>
-                    <Grid container sx = {{mt:4,width:1278}}>
-                        <Grid sx = {{width:400,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
+                    <Grid container sx = {{width:1278}}>
+                        <Grid sx = {{width:400, mt:4,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
                             <Avatar sx = {{height:400,width:400,backgroundColor: '#FFFFFF'}} src={pathPicture} />
                             <Grid><Typography component="h1" variant="h1">{NICKNAME}</Typography></Grid>
                         </Grid>
-                        <Grid container sx = {{ml:6,width:820}}>
-                            <TestCard test = {{tittle: "Лол", desc: "Кекич", mark: "10.0", quanQue: "12"}}/>
+                        <Grid container spacing = {2} sx = {{ml:6,width:820}}>
+                            {TESTS_FOR_PROFILE.map(data =>(<TestCreatorCard id = {data.id} testType = {data.testType} picture = {data.picture} tittle = {data.name} author = {data.author} created = {data.created} description = {data.description} mark = {data.mark} numberQuestions = {data.numberQuestions}/>))}
                         </Grid>
                     </Grid>
                 </Grid>

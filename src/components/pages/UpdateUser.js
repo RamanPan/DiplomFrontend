@@ -38,6 +38,7 @@ const UpdateUser = () => {
     useEffect(() => {
         if(NICKNAME === undefined) navigate("/login")
 
+
     });
     const handleLogin = () => {
         console.log(loginState)

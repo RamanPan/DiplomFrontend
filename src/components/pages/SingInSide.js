@@ -23,11 +23,13 @@ import {useNavigate} from "react-router";
 
 
 
-const theme = themeMy;
+
 export var ACCESS_TOKEN;
 export var NICKNAME = undefined;
 export var PICTURE = " ";
 export var PASSWORD;
+export var USER_ID;
+export var TRUE_OR_FALSE = false;
 function SignInSide() {
     const {usersStore} = useStore();
     const [logState,setLogState] = useState();
@@ -49,13 +51,15 @@ function SignInSide() {
             ACCESS_TOKEN = usersStore.me.token;
             NICKNAME = usersStore.me.nickname;
             PICTURE = usersStore.me.picture;
+            USER_ID = usersStore.me.id;
+
             setSingIn(true)}
     };
     if(signIn) {
         navigate("/catalog");
     }
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeMy}>
             <Grid container component="main"
                   style={{backgroundImage: `url(${Image})`,}}
                   sx={{
@@ -115,12 +119,12 @@ function SignInSide() {
                             >
                                 Войти
                             </Button>
-                            <Grid container>
-                                <Grid xs = {6} item >
-                                    <Link to = "/forgot"> <div className="text">Забыли пароль? </div></Link>
+                            <Grid container spacing={7}>
+                                <Grid item sx = {{ml:2.5}} >
+                                    <Link to = "/forgot"> <Typography>Забыли пароль? </Typography></Link>
                                 </Grid >
-                                <Grid item >
-                                    <Link to = "/registration" >  <div className="text">Зарегистрироваться? </div></Link>
+                                <Grid item sx = {{mr:2.5}}>
+                                    <Link to = "/registration" > <Typography>Не зарегистрированы? </Typography></Link>
                                 </Grid>
                             </Grid>
                         </Box>

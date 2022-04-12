@@ -6,7 +6,7 @@ import {Autocomplete, TextField} from "@mui/material";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Button from "@mui/material/Button";
 import {
-    API_CREATE_QUESTION, API_CREATE_TEST,
+    API_CREATE_QUESTION, API_CREATE_TEST, API_DELETE_QUESTION, API_DELETE_RESULT,
     API_UPLOAD_QUESTION_PICTURE,
     API_UPLOAD_TEST_PICTURE,
     questionCategories,
@@ -20,23 +20,25 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './quest.css'
 import useStore from "../utils/useStore";
 import {Input, TEST_ID} from "../pages/Construct"
-import {postReq, postReqFile} from "../utils/apiCalls";
+import {deleteReq, postReq, postReqFile} from "../utils/apiCalls";
 import {observer} from "mobx-react-lite";
+import {ID_RESULTS} from "./Result";
 
+export var ID_QUESTIONS = [];
 export var QUE_ID;
 const Question = (props) => {
     const [questionState,setQuestionState] = useState({});
     const [type,setType] = useState(questionTypes[0]);
     const [category,setCategory] = useState(questionCategories[0]);
     const [difficult,setDifficult] = useState(questionDifficulties[0]);
-    const [counter,setCounter] = useState(0);
+    // const [counter,setCounter] = useState(0);
     const [picture,setPicture] = useState(" ");
     const [statement,setStatement] = useState("");
     const [isPicture,setIsPicture] = useState(false);
     const [switchBut,setSwitch] = useState(false)
     const [answers,setAnswers] = useState([]);
-    const handleClickAddAnswer = () => {
-        if(counter === 0) {
+    const handleClickAddOrDeleteQuestion = () => {
+        if(!switchBut) {
             let test = props.test_id
             let obj = {
                 statement,
@@ -48,13 +50,20 @@ const Question = (props) => {
             Object.assign(questionState, questionState, obj)
             postReq(API_CREATE_QUESTION, questionState).then(response => {
                 QUE_ID = response
+                ID_QUESTIONS[props.number-1] = QUE_ID
                 setSwitch(true)
-                handleClickShowAnswer()
+                handleShowAnswer()
             })
         }
-        setCounter((prevState) => {return (prevState + 1)})
+        else {
+            console.log(ID_QUESTIONS)
+            let id = ID_QUESTIONS[props.number - 1]
+            deleteReq(API_DELETE_QUESTION,id).then(response => {
+                setSwitch(false)
+            })
+        }
     }
-    const handleClickShowAnswer = () => {
+    const handleShowAnswer = () => {
         console.log(QUE_ID)
         setAnswers([
             <Answer number={1} id_quest={QUE_ID} id_num = {props.number}/>,
@@ -163,9 +172,9 @@ const Question = (props) => {
                                   }}
                                   renderInput={(params) => <TextField {...params} label="Выберите сложность вопроса" />}
                     />
-                    {answers.map(answer => {return answer})}
-                    {switchBut ? (<div/>) :
-                        (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddAnswer} variant="contained" color='primary'>Утвердить вопрос </Button>)}
+                    {switchBut ? (answers.map(answer => {return answer})) : (<div/>) }
+                    {switchBut ? (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteQuestion} variant="contained" color='primary'>Передумать </Button>) :
+                        (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteQuestion} variant="contained" color='primary'>Утвердить вопрос </Button>)}
                 </Grid>
             </Grid>
             </Box>

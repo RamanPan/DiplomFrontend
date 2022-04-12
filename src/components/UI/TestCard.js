@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Typography from "@mui/material/Typography";
 import {Card, CardActions, CardContent, CardHeader, CardMedia} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -12,17 +12,47 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import StarIcon from '@mui/icons-material/Star';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import Grid from "@mui/material/Grid";
+import {observer} from "mobx-react-lite";
+import {NICKNAME} from "../pages/SingInSide";
+import {postReq} from "../utils/apiCalls";
+import {API_GET_USER_PICTURE} from "../utils/constans";
+import Catalog from "../pages/Catalog";
+import ExtendedTestCard from "../pages/ExtendedTestCard";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {useNavigate} from "react-router";
+import Button from "@mui/material/Button";
+import useStore from "../utils/useStore";
 
 
-
+export var PASSING_TEST;
+export var AVATAR;
 const TestCard = (props) => {
     const [expanded, setExpanded] = React.useState(false);
+    const [date, setDate] = useState(props.created);
+    const [avatar, setAvatar] = useState("default_avatar.png");
+    const navigate = useNavigate();
+    const {testsStore} = useStore();
+    let picture;
+    useEffect(async () => {
+        let author = props.author
+        picture = await postReq(API_GET_USER_PICTURE,{"author": author})
+        setAvatar(picture["picture"]);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    });
+
+    const handlerButtonTestCard = () => {
+        testsStore.getTests({"id": props.id}).then(r => {
+            console.log(testsStore.passingTest.id)
+            PASSING_TEST = testsStore.passingTest;
+            AVATAR = avatar;
+            navigate("/catalog/startTestPass")
+        });
+
+    }
     return (
-        <Card sx={{ width: 270, height: 450, borderRadius: "15px",backgroundColor: "#F1DCC9" }}>
+        <div>
+            <Button onClick={handlerButtonTestCard} sx = {{mt:2}}>
+            <Card sx={{ width: 300, height: 450, borderRadius: "15px",border:"10px", borderColor:"#9F4636", backgroundColor: "#F1DCC9" }}>
             {/*<CardHeader*/}
             {/*    avatar={*/}
             {/*        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">*/}
@@ -40,20 +70,22 @@ const TestCard = (props) => {
             <CardMedia
                 component="img"
                 height="200"
-                image="/static/images/cards/paella.jpg"
+                image={"http://localhost:8081/images/tests/" + props.picture}
             />
             <CardContent sx = {{alignItems: 'flex-start',}}>
                 <Typography variant="h4" color="another" align="left">
-                    {props.test.tittle}
+                    {props.tittle}
                 </Typography>
                 <Typography variant="body2" color="another" align="left">
-                    {props.test.desc}
+                    {props.description}
                 </Typography>
 
             </CardContent>
-                <Grid sx = {{mt: 14,ml: 2, display: 'flex',alignItems: 'flex-start',}}>
-                    <StarIcon /> {props.test.mark}
-                    <QuestionMarkIcon /> {props.test.quanQue}
+                <Grid container sx = {{mt: 14,ml: 2, display: 'flex',alignItems: 'flex-start',}}>
+                    <StarIcon /> {props.mark}
+                    <QuestionMarkIcon /> {props.numberQuestions}
+                    <Typography sx = {{ml:7,mr:1, fontSize:16,mt:0.4}}>{props.author}</Typography>
+                    <Avatar sx = {{fontSize:14,mr:1,mt:-0.5}} src={"http://localhost:8081/images/users/" + avatar}/>
             </Grid>
 
 
@@ -87,7 +119,9 @@ const TestCard = (props) => {
             {/*    </CardContent>*/}
             {/*</Collapse>*/}
         </Card>
+            </Button>
+        </div>
     );
 }
 
-export default TestCard;
+export default observer(TestCard);

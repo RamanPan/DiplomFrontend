@@ -61,6 +61,7 @@ const Construct = () => {
     }
 
     const handleSubmit = () => {
+        console.log(constructState)
             postReq(API_CREATE_TEST, constructState).then(response => {
 
                 TEST_ID = response

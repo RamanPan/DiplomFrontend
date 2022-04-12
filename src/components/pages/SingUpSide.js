@@ -47,6 +47,8 @@ export default function SignUp() {
     const handleSubmit = () => {
         postReq(API_REGISTER,regState).then(response => {
             setSignUp(true)
+        }).catch(error => {
+            if(error.status === 406) setSignUp(true)
         })
     };
     if(isSignUp) {

@@ -114,13 +114,13 @@ const Navigation = () => {
                                 component={Link} to = '/catalog'
                                 sx={{ my: 2,mr: 5,ml: 2, color: '#F1DCC9', display: 'block' }}
                             >
-                                <Typography sx={{ fontSize: 20 }}><GridViewIcon sx={{ fontSize: 20 }}/> Каталог</Typography>
+                                <Grid container> <GridViewIcon sx={{ fontSize: 20,mt:0.55,mr: 1 }}/><Typography sx={{ fontSize: 20 }}>Каталог</Typography></Grid>
                             </Button>
                             <Button
                                 component={Link} to = '/construct'
                                 sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}
                             >
-                                <Typography sx={{ fontSize: 20 }}> <CreateIcon sx={{ fontSize: 20 }}/> Конструктор</Typography>
+                                <Grid container> <CreateIcon sx={{ fontSize: 20,mt:0.5,mr: 1   }}/><Typography sx={{ fontSize: 20 }}> Конструктор</Typography></Grid>
                             </Button>
                             {/*<Button*/}
                             {/*    onClick={{}}*/}

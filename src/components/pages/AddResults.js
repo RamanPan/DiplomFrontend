@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigation from "../UI/Navigation";
 import Image from "../../resources/fon.jpeg";
 import Grid from "@mui/material/Grid";
@@ -13,8 +13,27 @@ import TextField from "@mui/material/TextField";
 import {Autocomplete} from "@mui/material";
 import Question from "../UI/Question";
 import Result from "../UI/Result";
+import {useNavigate} from "react-router";
+import {NICKNAME} from "./SingInSide";
+import {TEST_ID} from "./Construct";
 
 const AddResults = () => {
+    const[results,setResults] = useState([]);
+    const [counter,setCounter] = useState(1);
+    const navigate = useNavigate()
+    useEffect(() => {
+        // if(NICKNAME === undefined) navigate("/login")
+
+    });
+    const handleClickAddResult = () => {
+        setResults([
+            ...results,
+            <Result number = {counter}
+                      test_id = {TEST_ID}
+            />
+        ])
+        setCounter((prevState) => {return (prevState + 1)})
+    }
     return (
         <div>
             <Navigation/>
@@ -35,11 +54,11 @@ const AddResults = () => {
                     <Typography component="h1" variant="h1" sx = {{}}>
                         РЕЗУЛЬТАТЫ
                     </Typography>
-                    <Result/>
+                    {results.map(quest => {return quest})}
                 </Box>
                 <Grid container sx={{
                     mx: 16,width: 1200,mb: 3}}>
-                    <Button sx = {{borderRadius: "8px"}} size='large' fullWidth variant="contained" color='secondary'><Typography variant="h4">Добавить результат</Typography>  </Button>
+                    <Button sx = {{borderRadius: "8px"}} size='large' fullWidth variant="contained" onClick={handleClickAddResult} color='secondary'><Typography variant="h4">Добавить результат</Typography>  </Button>
                 </Grid>
                 <Grid container sx={{
                     mx: 16,width: 1200,mb: 3}}>

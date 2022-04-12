@@ -42,10 +42,12 @@ const Answer = (props) => {
                 ID_ANSWERS[props.number - 1 + (props.id_num - 1) * 4 ] = ID_ANSWER
             })
         }
-        else {console.log(ID_ANSWERS)
+        else {
             let id = ID_ANSWERS[props.number - 1 + (props.id_num - 1) * 4 ]
             deleteReq(API_DELETE_ANSWER,id).then(response => {
+                console.log(ID_ANSWERS)
                 setAgree(false)
+                console.log(agree)
             })
 
     }

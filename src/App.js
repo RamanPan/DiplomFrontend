@@ -10,7 +10,13 @@ import AddResults from "./components/pages/AddResults";
 import Profile from "./components/pages/Profile";
 import ProfileTest from "./components/pages/ProfileTest";
 import UpdateUser from "./components/pages/UpdateUser";
+import {observer} from "mobx-react-lite";
+import ChangePassword from "./components/pages/ChangePassword";
+import BeforeTestPass from "./components/pages/BeforeTestPass";
+import PassingTest from "./components/pages/PassingTest";
+import AfterTestPass from "./components/pages/AfterTestPass";
 
+export var TEST_PASS;
 const App = () => {
     return (
     <div className="App">
@@ -22,13 +28,18 @@ const App = () => {
             {/*       render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>*/}
                <BrowserRouter><Routes> <Route path="/registration" element={<SignUpSide/>}/>
                     <Route path="/login" element={<SignInSide/>}/>
+                    <Route path="/forgot" element={<ChangePassword/>}/>
                     <Route path="/catalog" element={<Catalog/>}/>
+                    <Route path="/catalog/startTestPass" element={<BeforeTestPass/>}/>
+                    <Route path="/catalog/testPass" element={<PassingTest/>}/>
+                    <Route path="/catalog/endTestPass" element={<AfterTestPass/>}/>
                     <Route path="/construct" element={<Construct/>}/>
                     <Route path="/construct/addQuestions" element={<AddQuestions/>}/>
                     <Route path="/construct/addResults" element={<AddResults/>}/>
                     <Route path="/lk" element={<Profile/>}/>
                     <Route path="/lk/update" element={<UpdateUser/>}/>
-                   <Route path="/lk/tests" element={<ProfileTest/>}/></Routes></BrowserRouter>
+                   <Route path="/lk/tests" element={<ProfileTest/>}/>
+               </Routes></BrowserRouter>
 
 
             {/*<Route path="/users/:username"*/}
@@ -38,4 +49,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default observer(App);

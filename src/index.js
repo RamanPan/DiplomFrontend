@@ -12,7 +12,7 @@ ReactDOM.render(
     <React.StrictMode>
         <StoreContext.Provider value={store}>
         <ThemeProvider theme={themeMy}>
-            <CssBaseline />
+            <CssBaseline/>
             <App />
         </ThemeProvider>
         </StoreContext.Provider>
