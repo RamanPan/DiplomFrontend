@@ -8,8 +8,6 @@ import Button from "@mui/material/Button";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import {Link} from "react-router-dom";
-import TestCard from "../UI/TestCard";
-import useStore from "../utils/useStore";
 import {TEST_ID} from "./Construct";
 import {NICKNAME} from "./SingInSide";
 import {useNavigate} from "react-router";

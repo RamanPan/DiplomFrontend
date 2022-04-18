@@ -2,22 +2,16 @@ import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import {Autocomplete, Slider, TextField} from "@mui/material";
+import {Slider, TextField} from "@mui/material";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Button from "@mui/material/Button";
-import {
-    API_CREATE_QUESTION, API_CREATE_RESULT, API_DELETE_ANSWER, API_DELETE_RESULT,
-    API_UPLOAD_QUESTION_PICTURE,
+import {API_CREATE_RESULT, API_DELETE_RESULT,
     API_UPLOAD_RESULT_PICTURE,
-    questionTypes,
-    types
+
 } from "../utils/constans";
-import Paper from "@mui/material/Paper";
-import Answer, {ID_ANSWER, ID_ANSWERS} from "./Answer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {observer} from "mobx-react-lite";
 import {deleteReq, postReq, postReqFile} from "../utils/apiCalls";
-import {QUE_ID} from "./Question";
 import {Input} from "../pages/Construct";
 
 function valuetext(value) {
@@ -175,7 +169,7 @@ const Result = (props) => {
                         {correctness ? (<Button sx = {{ml:2,mb:0.9}} color = "success" onClick={updateCorrectness}><Typography sx = {{fontSize: 32}}>Да</Typography></Button> ) : (<Button sx = {{ml:2,mb:0.9}}  color = "error" onClick={updateCorrectness}><Typography sx = {{fontSize: 32}}>Нет</Typography></Button> )}
                     </Typography>
                     {switchBut ?
-                        (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteResult} variant="contained" color='primary'>Передумать </Button>) :
+                        (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,color: '#ffd700',borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteResult} variant="contained" color='primary'>Передумать </Button>) :
                         (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteResult} variant="contained" color='primary'>Утвердить результат </Button>)}
 
                 </Grid>

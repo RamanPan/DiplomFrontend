@@ -1,7 +1,6 @@
 import {flow, types} from 'mobx-state-tree';
-import QuestionStore from "./questionsStore";
 import {postReq} from "../components/utils/apiCalls";
-import {API_CREATE_ANSWER, API_GET_ANSWERS} from "../components/utils/constans";
+import {API_GET_ANSWERS} from "../components/utils/constans";
 
 const Answer = types
     .model('Answer',{

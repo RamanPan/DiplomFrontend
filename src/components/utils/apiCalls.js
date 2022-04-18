@@ -1,22 +1,7 @@
-import qs from 'query-string';
-import RootStore from "../../store";
-import {ActualUser} from "../../store/usersStore";
-import useStore from "./useStore";
-import { API_LOGIN, API_REGISTER} from "./constans";
+import { API_LOGIN} from "./constans";
 import {ACCESS_TOKEN} from "../pages/SingInSide";
 
-// const {Token} = useStore();
-//
-//
-//
-//
-// export function postReg(path, data) {
-//     const request = fetch(`${path}`,{
-//         method:'POST',
-//         body:JSON.stringify(data)
-//     });
-//     return request.json();
-// }
+
 
 const request = (options) => {
     const headers = new Headers({

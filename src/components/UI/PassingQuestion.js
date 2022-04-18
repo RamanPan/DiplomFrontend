@@ -2,18 +2,13 @@ import {observer} from "mobx-react-lite";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import {Input} from "../pages/Construct";
 import Button from "@mui/material/Button";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {Slider, TextField} from "@mui/material";
+import { TextField} from "@mui/material";
 import React, {useState} from "react";
 import {deleteReq, postReq} from "../utils/apiCalls";
 import {API_CREATE_USERS_ANSWER, API_DELETE_USERS_ANSWER} from "../utils/constans";
-import {TRUE_OR_FALSE, USER_ID} from "../pages/SingInSide";
-import {ID_USER_TEST} from "../pages/ExtendedTestCard";
-import useStore from "../utils/useStore";
-import {isNew} from "../pages/BeforeTestPass";
+import { USER_ID} from "../pages/SingInSide";
+import {ID_USER_TEST} from "./ExtendedTestCard";
 
 export var ID_USERS_ANSWER;
 const PassingQuestion = (props) => {
@@ -21,15 +16,17 @@ const PassingQuestion = (props) => {
     const [isSecond, setIsSecond] = useState(false);
     const [isThird, setIsThird] = useState(false);
     const [isFourth, setIsFourth] = useState(false);
+    const [isFive, setIsFive] = useState(false);
     const [counter,setCounter] = useState(1);
     // const [isNew, setIsNew] = useState(false);
-
+    let answer;
     let id = ID_USERS_ANSWER;
     if (counter === props.count){
         setIsFirst(false);
         setIsSecond(false);
         setIsThird(false);
         setIsFourth(false);
+        setIsFive(false);
         setCounter((prevState) => {
             return (prevState + 1)
     })
@@ -104,6 +101,36 @@ const PassingQuestion = (props) => {
 
         }
     }
+    const getAnswerTwo = () => {
+        if(props.answers[1] !== undefined) return props.answers[1].statement;
+        else return " ";
+    }
+    const getAnswerThree = () => {
+        if(props.answers[2] !== undefined) return props.answers[2].statement;
+        else return " ";
+    }
+    const getAnswerFour = () => {
+        if(props.answers[3] !== undefined) return props.answers[3].statement;
+        else return " ";
+    }
+    const uploadAnswer = (event) => {
+        const {value, name} = event.target;
+        answer = value;
+    }
+    const handleAnswer = () => {
+        if(!isFive) {
+        postReq(API_CREATE_USERS_ANSWER,{"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : answer}).then(r => {
+            ID_USERS_ANSWER = r
+            setIsFive(true)
+        })}
+        else {deleteReq(API_DELETE_USERS_ANSWER,id).then(
+            r => {
+                setIsFive(false)
+            }
+        )
+
+    }
+    }
     return (
         <div>
                 <Box component="img" sx = {{width:600,height:500,borderRadius: "15px"}}
@@ -114,16 +141,23 @@ const PassingQuestion = (props) => {
                         {props.question.statement}
                     </Typography>
                     {/*{props.answers.map(data =>(<Button variant = "contained" onClick={handleAnswer}>{data.statement}</Button>))}*/}
-                    <Grid>
+                    {props.isOpen ? (<Grid container sx = {{mt:2,}}>
+                        <TextField
+                            label="Введите ответ"
+                            name="answer"
+                            onChange={uploadAnswer}
+                            sx={{width: 390,height:80}}
+                        />   {isFive? (<Button variant = "contained" sx={{ml:3,width:180,color: '#ffd700',height:60,borderRadius: "15px"}} onClick={handleAnswer}>Я передумал!</Button>):(<Button variant = "contained" sx={{ml:3,width:180,height:60,borderRadius: "15px"}} onClick={handleAnswer}>Утвердить</Button>)}
+                    </Grid> ) : (<Grid>
                     <Grid container sx = {{mt:2}}>
                         {isFirst ? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleFirstAnswer}>{props.answers[0].statement}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFirstAnswer}>{props.answers[0].statement}</Button>)}
-                        {isSecond ?(<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{props.answers[1].statement}</Button>): (<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{props.answers[1].statement}</Button>)}
+                        {isSecond ?(<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{getAnswerTwo()}</Button>): (<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{getAnswerTwo()}</Button>)}
                     </Grid>
                     <Grid container sx = {{mt:2,mb:2}}>
-                        {isThird? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{props.answers[2].statement}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{props.answers[2].statement}</Button>)}
-                        {isFourth? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{props.answers[3].statement}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{props.answers[3].statement}</Button>)}
+                        {isThird? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{getAnswerThree()}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{getAnswerThree()}</Button>)}
+                        {isFourth? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{getAnswerFour()}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{getAnswerFour()}</Button>)}
                     </Grid>
-                </Grid>
+                </Grid>)}
                 </Grid>
             </Grid>
         </div>

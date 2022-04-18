@@ -1,6 +1,5 @@
 import {types} from 'mobx-state-tree';
-import {ActualUser, User} from "./usersStore";
-import {Test} from "./testsStore";
+import {ActualUser} from "./usersStore";
 import UserTestsStore from "./usertestsStore";
 import QuestionStore from "./questionsStore";
 

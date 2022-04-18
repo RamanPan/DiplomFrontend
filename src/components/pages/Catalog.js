@@ -1,29 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import Navigation from "../UI/Navigation";
-import Image from "../../resources/fon.jpeg";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {roles, types} from "../utils/constans";
+import { types} from "../utils/constans";
 import TextField from "@mui/material/TextField";
 import {Autocomplete, ButtonGroup} from "@mui/material";
 import TestCard from "../UI/TestCard";
 import '../util.css'
-import SignInSide, {NICKNAME} from "./SingInSide";
+import {NICKNAME} from "./SingInSide";
 import {useNavigate} from "react-router";
 import useStore from "../utils/useStore";
 import {observer} from "mobx-react-lite";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import ExtendedTestCard from "./ExtendedTestCard";
-import Construct from "./Construct";
-import AddQuestions from "./AddQuestions";
-import AddResults from "./AddResults";
-import Profile from "./Profile";
-import UpdateUser from "./UpdateUser";
-import ProfileTest from "./ProfileTest";
-import ChangePassword from "./ChangePassword";
+
 const Catalog = () => {
     const navigate = useNavigate();
     const {testsStore} = useStore();

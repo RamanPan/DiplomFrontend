@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -14,21 +14,9 @@ import Image from "../../resources/fon.jpeg";
 import Paper from "@mui/material/Paper";
 import {API_REGISTER, roles} from "../utils/constans"
 import {useState} from "react";
-import ApiCalls, {createUser, postReq} from "../utils/apiCalls";
-
-import {useHistory} from 'react-router-dom';
+import  { postReq} from "../utils/apiCalls";
 import {useNavigate} from "react-router";
 
-// function postReg(path, data) {
-//     const request = fetch(`${path}`,{
-//         method:'POST',
-//         body:JSON.stringify(data),
-//         headers:{
-//             'Content-Type': 'application/json',
-//         }
-//     });
-//     return request.json();
-// }
 export default function SignUp() {
     const [regState,setRegState] = useState();
     const [role,setRole] = useState(roles[0]);
@@ -106,7 +94,6 @@ export default function SignUp() {
                                             fullWidth
                                             id="fullname"
                                             label="ФИО"
-                                            autoFocus
                                         />
                                     </Grid>
                                     <Grid item xs={12}>

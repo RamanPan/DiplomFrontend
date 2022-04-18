@@ -4,7 +4,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -14,7 +13,6 @@ import * as React from "react";
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import {useState} from "react";
 import {useNavigate} from "react-router";
-import {ACCESS_TOKEN, NICKNAME, PASSWORD, PICTURE} from "./SingInSide";
 import {API_CHANGE_PASSWORD} from "../utils/constans";
 import {postReq} from "../utils/apiCalls";
 import themeMy from "../utils/themeMy";
@@ -88,10 +86,6 @@ export default function ChangePassword() {
                                     id="password"
                                     autoComplete="current-password"
                                 />
-                                {/*<FormControlLabel*/}
-                                {/*    control={<Checkbox value="remember" color="primary" />}*/}
-                                {/*    label="Remember me"*/}
-                                {/*/>*/}
                                 <Button
                                     onClick={handleSubmit}
                                     fullWidth
@@ -101,7 +95,7 @@ export default function ChangePassword() {
                                 >
                                     Сменить пароль
                                 </Button>
-                                <Grid container spacing={3}>
+                                <Grid container spacing={7}>
                                     <Grid item sx = {{ml:2.5}}>
                                         <Link to="/login"> <Typography> Не забыли пароль? </Typography></Link>
                                     </Grid>

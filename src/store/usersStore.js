@@ -1,7 +1,7 @@
 import {flow, types} from 'mobx-state-tree';
 import {getReq, postReq} from "../components/utils/apiCalls";
 import {API_ACTUAL_USER, API_LOGIN, API_LOGOUT} from "../components/utils/constans";
-import {ACCESS_TOKEN, NICKNAME} from "../components/pages/SingInSide";
+import {ACCESS_TOKEN} from "../components/pages/SingInSide";
 
 export const User = types
     .model('User',{

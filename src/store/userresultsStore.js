@@ -1,15 +1,6 @@
 import {cast, flow, types} from 'mobx-state-tree';
-import {ActualUser, User} from "./usersStore";
-import UserTestsStore from "./usertestsStore";
-import ResultsStore from "./resultsStore";
-import {getReq, postReq} from "../components/utils/apiCalls";
-import {
-    API_GET_BEST_TESTS,
-    API_GET_FILTER_TESTS,
-    API_GET_NEW_TESTS,
-    API_GET_OLD_TESTS,
-    API_GET_TEST,
-    API_GET_TESTS, API_GET_USERS_RESULTS
+import { postReq} from "../components/utils/apiCalls";
+import {API_GET_USERS_RESULTS
 } from "../components/utils/constans";
 
 const UserResult = types

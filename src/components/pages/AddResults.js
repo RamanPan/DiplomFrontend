@@ -1,29 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import Navigation from "../UI/Navigation";
-import Image from "../../resources/fon.jpeg";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import {roles, types} from "../utils/constans";
-import TextField from "@mui/material/TextField";
-import {Autocomplete} from "@mui/material";
-import Question from "../UI/Question";
+import {API_SET_NQ_TEST} from "../utils/constans";
 import Result from "../UI/Result";
 import {useNavigate} from "react-router";
 import {NICKNAME} from "./SingInSide";
 import {TEST_ID} from "./Construct";
+import {postReq} from "../utils/apiCalls";
 
 const AddResults = () => {
     const[results,setResults] = useState([]);
     const [counter,setCounter] = useState(1);
     const navigate = useNavigate()
     useEffect(() => {
-        // if(NICKNAME === undefined) navigate("/login")
-
+        if(NICKNAME === undefined) navigate("/login")
+        postReq(API_SET_NQ_TEST,{"id":TEST_ID}).then();
     });
     const handleClickAddResult = () => {
         setResults([
@@ -33,6 +29,9 @@ const AddResults = () => {
             />
         ])
         setCounter((prevState) => {return (prevState + 1)})
+    }
+    const handleComplete = () => {
+        navigate("/catalog")
     }
     return (
         <div>
@@ -63,7 +62,7 @@ const AddResults = () => {
                 <Grid container sx={{
                     mx: 16,width: 1200,mb: 3}}>
                     <Button sx = {{borderRadius: "8px"}} size='large' variant="contained" color='primary'> <ArrowLeftIcon/>Назад </Button>
-                    <Button sx = {{borderRadius: "8px",ml:117.7}} size='large' variant="contained" color='primary'> Далее<ArrowRightIcon/> </Button>
+                    <Button sx = {{borderRadius: "8px",ml:117.7}} size='large' onClick={handleComplete} variant="contained" color='primary'> Далее<ArrowRightIcon/> </Button>
                 </Grid>
             </Grid>
         </div>

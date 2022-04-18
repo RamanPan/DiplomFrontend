@@ -3,22 +3,19 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { ThemeProvider, styled } from '@mui/material/styles';
+import { ThemeProvider} from '@mui/material/styles';
 import Image from '../../resources/fon.jpeg'
 import themeMy from "../utils/themeMy";
-import {Link, Navigate, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import {observer} from "mobx-react-lite";
 import useStore from "../utils/useStore";
 import {useState} from "react";
-import {createUser, loginUser} from "../utils/apiCalls";
 import {useNavigate} from "react-router";
 
 
@@ -93,7 +90,6 @@ function SignInSide() {
                                 label="Введите логин"
                                 name="login"
                                 autoComplete="login"
-                                autoFocus
                             />
                             <TextField
                                 margin="normal"
@@ -119,8 +115,8 @@ function SignInSide() {
                             >
                                 Войти
                             </Button>
-                            <Grid container spacing={7}>
-                                <Grid item sx = {{ml:2.5}} >
+                            <Grid container spacing={10}>
+                                <Grid item sx = {{ml:4}} >
                                     <Link to = "/forgot"> <Typography>Забыли пароль? </Typography></Link>
                                 </Grid >
                                 <Grid item sx = {{mr:2.5}}>

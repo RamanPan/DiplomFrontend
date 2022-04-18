@@ -1,22 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import Navigation from "../UI/Navigation";
-import Image from "../../resources/fon.jpeg";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {API_CREATE_TEST, API_REGISTER, API_UPLOAD_TEST_PICTURE, roles, types} from "../utils/constans";
+import {API_CREATE_TEST,  API_UPLOAD_TEST_PICTURE, types} from "../utils/constans";
 import TextField from "@mui/material/TextField";
-import {Autocomplete, FormControl, InputLabel, Select} from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
+import {Autocomplete} from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import {postReq, postReqFile} from "../utils/apiCalls";
 import {useNavigate} from "react-router";
 import {observer} from "mobx-react-lite";
 import { styled } from '@mui/material/styles';
 import useStore from "../utils/useStore";
-import {ACCESS_TOKEN, NICKNAME} from "./SingInSide";
+import { NICKNAME} from "./SingInSide";
 import "./css/Construct.css"
 export const Input = styled('input')({
     display: 'none',
@@ -63,7 +60,7 @@ const Construct = () => {
     const handleSubmit = () => {
         console.log(constructState)
             postReq(API_CREATE_TEST, constructState).then(response => {
-
+                usersStore.needUser({"id": usersStore.me.id}).then()
                 TEST_ID = response
                 console.log(TEST_ID)
                 setIsCreate(true)

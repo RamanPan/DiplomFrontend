@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {TextField} from "@mui/material";
@@ -15,7 +14,7 @@ export var ID_ANSWER;
 const Answer = (props) => {
     const [correctness, setCorrectness] = useState(false);
     const [agree, setAgree] = useState(false);
-    const [answerState,setAnswerState] = useState({});
+    const [answerState] = useState({});
     const [statement, setStatement] = useState("");
     let question = props.id_quest;
 

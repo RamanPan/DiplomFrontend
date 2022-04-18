@@ -1,18 +1,12 @@
 import Navigation from "../UI/Navigation";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {Autocomplete, ButtonGroup} from "@mui/material";
-import {
-    API_CREATE_TEST, API_SET_USER_EMAIL, API_SET_USER_FULLNAME,
+import {API_SET_USER_EMAIL, API_SET_USER_FULLNAME,
     API_SET_USER_LOGIN, API_SET_USER_PASSWORD, API_SET_USER_PICTURE,
-    API_UPLOAD_TEST_PICTURE,
     API_UPLOAD_USER_PICTURE,
-    types
 } from "../utils/constans";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
 import React, {useEffect, useState} from "react";
 import {Input} from "./Construct";
 import {useNavigate} from "react-router";

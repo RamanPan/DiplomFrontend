@@ -6,28 +6,24 @@ import {Autocomplete, TextField} from "@mui/material";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Button from "@mui/material/Button";
 import {
-    API_CREATE_QUESTION, API_CREATE_TEST, API_DELETE_QUESTION, API_DELETE_RESULT,
+    API_CREATE_QUESTION,  API_DELETE_QUESTION,
     API_UPLOAD_QUESTION_PICTURE,
-    API_UPLOAD_TEST_PICTURE,
     questionCategories,
     questionDifficulties,
     questionTypes,
-    types
 } from "../utils/constans";
 import Paper from "@mui/material/Paper";
 import Answer from "./Answer";
 import DeleteIcon from '@mui/icons-material/Delete';
 import './quest.css'
-import useStore from "../utils/useStore";
-import {Input, TEST_ID} from "../pages/Construct"
+import {Input} from "../pages/Construct"
 import {deleteReq, postReq, postReqFile} from "../utils/apiCalls";
 import {observer} from "mobx-react-lite";
-import {ID_RESULTS} from "./Result";
 
 export var ID_QUESTIONS = [];
 export var QUE_ID;
 const Question = (props) => {
-    const [questionState,setQuestionState] = useState({});
+    const [questionState] = useState({});
     const [type,setType] = useState(questionTypes[0]);
     const [category,setCategory] = useState(questionCategories[0]);
     const [difficult,setDifficult] = useState(questionDifficulties[0]);
@@ -173,7 +169,7 @@ const Question = (props) => {
                                   renderInput={(params) => <TextField {...params} label="Выберите сложность вопроса" />}
                     />
                     {switchBut ? (answers.map(answer => {return answer})) : (<div/>) }
-                    {switchBut ? (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteQuestion} variant="contained" color='primary'>Передумать </Button>) :
+                    {switchBut ? (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,color: '#ffd700',borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteQuestion} variant="contained" color='primary'>Передумать </Button>) :
                         (<Button sx = {{mr:10,mt: 2,mb: 2,width:700,borderRadius: "8px"}} size='large' onClick={handleClickAddOrDeleteQuestion} variant="contained" color='primary'>Утвердить вопрос </Button>)}
                 </Grid>
             </Grid>

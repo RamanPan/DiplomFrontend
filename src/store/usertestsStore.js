@@ -1,5 +1,5 @@
 import {types} from 'mobx-state-tree';
-import {ActualUser, User} from "./usersStore";
+import {ActualUser} from "./usersStore";
 import {Test} from "./testsStore";
 
 const UserTestsStore = types

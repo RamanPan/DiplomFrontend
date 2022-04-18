@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import {ButtonGroup} from "@mui/material";
 import Button from "@mui/material/Button";
-import TestCard from "../UI/TestCard";
 import {useNavigate} from "react-router";
 import {NICKNAME, PICTURE} from "./SingInSide";
 import {Link} from "react-router-dom";

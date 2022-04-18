@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {postReq} from "../utils/apiCalls";
-import {API_CREATE_USERS_TEST, API_GET_USER_PICTURE} from "../utils/constans";
-import {ButtonGroup, Card, CardContent, CardMedia} from "@mui/material";
+import {API_CREATE_USERS_TEST} from "../utils/constans";
+import { Card, CardContent, CardMedia} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import StarIcon from "@mui/icons-material/Star";
@@ -9,10 +9,10 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Avatar from "@mui/material/Avatar";
 import {observer} from "mobx-react-lite";
-import {AVATAR} from "../UI/TestCard";
+import {AVATAR} from "./TestCard";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router";
-import {USER_ID} from "./SingInSide";
+import {USER_ID} from "../pages/SingInSide";
 
 export var ID_USER_TEST;
 const ExtendedTestCard = (props) => {
@@ -43,7 +43,7 @@ const ExtendedTestCard = (props) => {
                     {props.test.description}
                 </Typography>
                 <Grid container sx = {{mt: 14,ml:"138px", display: 'flex',alignItems: 'flex-start',}}>
-                    <StarIcon /> <Typography sx = {{mr:1, fontSize:18}}>{props.test.mark} </Typography>
+                    <StarIcon /> <Typography sx = {{mr:1, fontSize:18}}>{props.test.mark.toFixed(1)} </Typography>
                     <QuestionMarkIcon /> <Typography sx = {{mr:1, fontSize:18}}>{props.test.numberQuestions} </Typography>
                     <CalendarMonthIcon/><Typography sx = {{mr:1, fontSize:18}}>{props.test.created.substring(0,10)}</Typography>
                     <Avatar sx = {{fontSize:16,mr:1,mt:-0.5}} src={"http://localhost:8081/images/users/" + AVATAR}/>

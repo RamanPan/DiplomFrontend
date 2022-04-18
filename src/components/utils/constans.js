@@ -1,5 +1,3 @@
-import {tok} from "../pages/SingInSide";
-
 export const API_LOGIN = 'http://localhost:8081/api/v1/login';
 export const API_REGISTER = 'http://localhost:8081/api/v1/register';
 export const API_CHANGE_PASSWORD = 'http://localhost:8081/api/v1/changePassword';
@@ -10,14 +8,18 @@ export const API_GET_QUESTION = 'http://localhost:8081/api/tests/getQuestion';
 export const API_GET_ANSWERS = 'http://localhost:8081/api/questions/getAnswers';
 export const API_GET_OLD_TESTS = 'http://localhost:8081/api/tests/getOldTests';
 export const API_GET_NEW_TESTS = 'http://localhost:8081/api/tests/getNewTests';
+export const API_SET_NQ_TEST = 'http://localhost:8081/api/tests/setNQ';
 export const API_GET_BEST_TESTS = 'http://localhost:8081/api/tests/getBestTests';
 export const API_GET_TESTS_BY_AUTHOR = 'http://localhost:8081/api/tests/getByAuthor';
 export const API_GET_FILTER_TESTS = 'http://localhost:8081/api/tests/getFilterTests';
 export const API_GET_USERS_RESULTS = 'http://localhost:8081/api/usersResults/getResults';
+// export const API_GET_USER_RESULT = 'http://localhost:8081/api/usersResults/getResult';
 export const API_CREATE_TEST = 'http://localhost:8081/api/tests/create';
 export const API_CREATE_USERS_TEST = 'http://localhost:8081/api/usersTests/create';
+export const API_SET_MARK_USERS_TEST = 'http://localhost:8081/api/usersTests/setMark';
 export const API_CREATE_USERS_ANSWER = 'http://localhost:8081/api/usersAnswers/create';
 export const API_DELETE_USERS_ANSWER = 'http://localhost:8081/api/usersAnswers/delete';
+export const API_GET_USERS_ANSWER = 'http://localhost:8081/api/usersAnswers/getUserAnswers';
 export const API_ACTUAL_USER = 'http://localhost:8081/api/users/actUser';
 export const API_CREATE_QUESTION = 'http://localhost:8081/api/questions/create';
 export const API_DELETE_QUESTION = 'http://localhost:8081/api/questions/delete';

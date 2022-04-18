@@ -13,12 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import CreateIcon from '@mui/icons-material/Create';
 import GridViewIcon from '@mui/icons-material/GridView';
-import {pages, settings} from "../utils/constans"
-import { useHistory, Link } from "react-router-dom";
+import {pages} from "../utils/constans"
+import {  Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import useStore from "../utils/useStore";
 import {useNavigate} from "react-router";
-import {NICKNAME, PICTURE} from "../pages/SingInSide";
+import {PICTURE} from "../pages/SingInSide";
 import {useEffect, useState} from "react";
 import {PICTURE_UPDATE} from "../pages/UpdateUser";
 const Navigation = () => {

@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes} from "react-router-dom";
-import SignInSide, {NICKNAME} from "./components/pages/SingInSide";
+import SignInSide from "./components/pages/SingInSide";
 import SignUpSide from "./components/pages/SingUpSide";
 import Catalog from "./components/pages/Catalog";
 import Construct from "./components/pages/Construct";
@@ -16,7 +16,6 @@ import BeforeTestPass from "./components/pages/BeforeTestPass";
 import PassingTest from "./components/pages/PassingTest";
 import AfterTestPass from "./components/pages/AfterTestPass";
 
-export var TEST_PASS;
 const App = () => {
     return (
     <div className="App">

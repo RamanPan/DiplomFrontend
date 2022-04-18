@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Navigation from "../UI/Navigation";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {ButtonGroup} from "@mui/material";
 import {useNavigate} from "react-router";
@@ -12,14 +11,12 @@ import {Link} from "react-router-dom";
 import {PICTURE_UPDATE} from "./UpdateUser";
 import useStore from "../utils/useStore";
 import {observer} from "mobx-react-lite";
-import TestCard from "../UI/TestCard";
 import TestPassedCard from "../UI/TestPassedCard";
 import {postReq} from "../utils/apiCalls";
 import {API_GET_TESTS_BY_AUTHOR} from "../utils/constans";
-export var user_role;
 export var user_date;
 export var TESTS_FOR_PROFILE = [];
-const Profile = (props) => {
+const Profile = () => {
     const navigate = useNavigate()
     const [pathPicture, setPathPicture] = useState("http://localhost:8081/images/users/default_avatar.png");
     const {usersStore} = useStore();
@@ -80,13 +77,13 @@ const Profile = (props) => {
                         <Button onClick={changePage}>Результаты</Button>
                         <Button onClick={changePageToTests}>Тесты</Button>
                     </ButtonGroup>
-                    <Grid container sx = {{mt:4,width:1278}}>
-                        <Grid sx = {{width:400,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
+                    <Grid container sx = {{width:1278}}>
+                        <Grid sx = {{mt:4,width:400,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
                             <Avatar sx = {{height:400,width:400,backgroundColor: '#FFFFFF'}} src={pathPicture} />
                             <Grid><Typography component="h1" variant="h1">{NICKNAME}</Typography></Grid>
                         </Grid>
-                            {isResults ? ( <Grid container sx = {{width:878}}><Grid sx = {{ml:6,width:820,alignItems:'flex-start',borderRadius: "15px"}}>
-                                    {userResultsStore.userResults.map(data =>(<TestPassedCard testResult = {data}/>))}</Grid></Grid>):(<Grid container sx = {{width:878}}><Grid sx = {{ml:6,width:410,minHeight:500,backgroundColor:'#F1DCC9',alignItems:'flex-start',borderRadius: "15px"}}>
+                            {isResults ? ( <Grid container sx = {{width:878}}>
+                                    {userResultsStore.userResults.map(data =>(<TestPassedCard testResult = {data}/>))}</Grid>):(<Grid container sx = {{width:878,mt:4,}}><Grid sx = {{ml:6,width:410,minHeight:500,backgroundColor:'#F1DCC9',alignItems:'flex-start',borderRadius: "15px"}}>
                                 <Typography align='left' variant='h4' sx = {{color: '#9F4636',ml:2,mt: 2}}>ФИО</Typography>
                                 <Typography align='left' variant='h5' sx = {{ml:2,mt: 1,mb:2}}>{usersStore.me.fullname}</Typography>
                                 <Typography align='left' variant='h4' sx = {{color: '#9F4636',ml:2,mt: 2}}>Email</Typography>
@@ -96,10 +93,10 @@ const Profile = (props) => {
                                 <Typography align='left' variant='h4' sx = {{color: '#9F4636',ml:2,mt: 2,}}>Статус аккаунта</Typography>
                                 <Typography align='left' variant='h5' sx = {{ml:2,mt: 1,mb:2}}>{getRole()}</Typography> </Grid>
                                 <Grid sx = {{ml:0.5,width:410,minHeight:500,backgroundColor:'#F1DCC9',borderRadius: "15px"}}>
-                                <Typography align='left' variant='h4' sx = {{color: '#9F4636',ml:2,mt: 2}}>Кол-во пройденных тестов</Typography>
-                                <Typography align='left' variant='h5' sx = {{ml:2,mt: 1,mb:2}}>0</Typography>
+                                <Typography align='left' variant='h4' sx = {{color: '#9F4636',ml:2,mt: 2}}>Кол-во прохождений</Typography>
+                                <Typography align='left' variant='h5' sx = {{ml:2,mt: 1,mb:2}}>{usersStore.me.countPassed}</Typography>
                                 <Typography align='left' variant='h4' sx = {{color: '#9F4636',ml:2,mt: 2}}>Кол-во созданных тестов</Typography>
-                                <Typography align='left' variant='h5' sx = {{ml:2,mt: 1,mb:2}}>0</Typography>
+                                <Typography align='left' variant='h5' sx = {{ml:2,mt: 1,mb:2}}>{usersStore.me.countCreated}</Typography>
                                 </Grid>
                                 <Grid sx = {{ml:6,mt:1,width:824,height:75,borderRadius: "15px"}}>
                                 <Button sx = {{borderRadius: "8px"}} component={Link} to = '/lk/update' size='large'  variant="contained" color='primary'><Typography >Редактировать данные</Typography>

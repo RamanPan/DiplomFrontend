@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Typography from "@mui/material/Typography";
-import {Card, CardActions, CardContent, CardHeader, CardMedia} from "@mui/material";
+import {Card, CardContent, CardMedia} from "@mui/material";
 import {observer} from "mobx-react-lite";
-import {useNavigate} from "react-router";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import Grid from "@mui/material/Grid";
 
 
 
@@ -20,13 +22,13 @@ const TestPassedCard = (props) => {
     return (
         <div>
             {/*<Button onClick={handlerButtonTestCard} sx = {{mt:2}}>*/}
-                <Card sx={{ width: 300, height: 330, borderRadius: "15px",border:"10px", borderColor:"#9F4636", backgroundColor: "#F1DCC9" }}>
+                <Card sx={{ mt:4,ml:5,width: 250, height: 330, borderRadius: "15px",border:"10px", borderColor:"#9F4636", backgroundColor: "#F1DCC9" }}>
                     <CardMedia
                         component="img"
-                        height="200"
+                        height="150"
                         image={"http://localhost:8081/images/results/" + props.testResult.picture}
                     />
-                    <CardContent sx = {{alignItems: 'flex-start',}}>
+                    <CardContent sx = {{alignItems: 'flex-start',minHeight: 150,}}>
                         <Typography variant="h4" color="another" align="left">
                             {props.testResult.header + "(" + props.testResult.result + "%)"}
                         </Typography>
@@ -36,6 +38,11 @@ const TestPassedCard = (props) => {
                         <Typography variant="body2" color="another" align="left">
                             {"Тест: " + props.testResult.name}
                         </Typography>
+                        <Grid container justifyContent="center">
+                            {props.testResult.correctness ? (<CheckIcon sx = {{fontSize:60,color:"#203a27"}}/>) : (<CloseIcon sx = {{fontSize:60,color:"#490005"}}/>)
+
+                            }
+                        </Grid>
                     </CardContent>
 
 
