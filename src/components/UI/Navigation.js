@@ -18,20 +18,22 @@ import {  Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import useStore from "../utils/useStore";
 import {useNavigate} from "react-router";
-import {PICTURE} from "../pages/SingInSide";
+import {NICKNAME, PICTURE} from "../pages/SingInSide";
 import {useEffect, useState} from "react";
 import {PICTURE_UPDATE} from "../pages/UpdateUser";
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [pathPicture, setPathPicture] = useState("http://localhost:8081/images/users/default_avatar.png");
+    const [isStudent, setIsStudent] = useState(false);
     const {usersStore} = useStore();
     const navigate = useNavigate();
 
     useEffect(() => {
+        if(NICKNAME === undefined) {navigate("/login"); return}
         if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
         if(PICTURE_UPDATE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)}
-
+        if(usersStore.me.role === "ROLE_STUDENT") setIsStudent(true);
     });
 
     const handleOpenNavMenu = (event) => {
@@ -116,12 +118,12 @@ const Navigation = () => {
                             >
                                 <Grid container> <GridViewIcon sx={{ fontSize: 20,mt:0.55,mr: 1 }}/><Typography sx={{ fontSize: 20 }}>Каталог</Typography></Grid>
                             </Button>
-                            <Button
+                        {isStudent ?(<div/>):(<Button
                                 component={Link} to = '/construct'
                                 sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}
                             >
                                 <Grid container> <CreateIcon sx={{ fontSize: 20,mt:0.5,mr: 1   }}/><Typography sx={{ fontSize: 20 }}> Конструктор</Typography></Grid>
-                            </Button>
+                            </Button>)}
                             {/*<Button*/}
                             {/*    onClick={{}}*/}
                             {/*    sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}*/}

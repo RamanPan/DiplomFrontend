@@ -35,14 +35,14 @@ const Question = (props) => {
     const [answers,setAnswers] = useState([]);
     const handleClickAddOrDeleteQuestion = () => {
         if(!switchBut) {
-            let test = props.test_id
+            let testLong = props.test_id
             let obj = {
                 statement,
                 picture,
                 type,
                 category,
                 difficult,
-                test};
+                testLong};
             Object.assign(questionState, questionState, obj)
             postReq(API_CREATE_QUESTION, questionState).then(response => {
                 QUE_ID = response
@@ -61,12 +61,18 @@ const Question = (props) => {
     }
     const handleShowAnswer = () => {
         console.log(QUE_ID)
-        setAnswers([
+        if(type === questionTypes[1]) {
+            setAnswers([
+            <Answer number={1} sx = {{mb:2}} id_quest={QUE_ID} id_num = {props.number}/>
+        ])
+        }
+        else {setAnswers([
             <Answer number={1} id_quest={QUE_ID} id_num = {props.number}/>,
             <Answer number={2} id_quest={QUE_ID} id_num = {props.number}/>,
             <Answer number={3} id_quest={QUE_ID} id_num = {props.number}/>,
             <Answer number={4} id_quest={QUE_ID} id_num = {props.number} sx = {{mb:2}}/>
         ])
+        }
     }
     const uploadHandler = (event) => {
         if(event !== undefined) {
@@ -108,7 +114,7 @@ const Question = (props) => {
                         <label>
                         <Input accept="image/*" id="contained-button-file" name="file" onChange={uploadHandler} multiple type="file"/>
                         <Button component="span" sx={{backgroundColor: '#F1DCC9',maxWidth: 300, height:300, mt: 1,mr: 14,borderRadius: "15px",}}>
-                            <Box component="img" sx = {{width:320,height:300,borderRadius: "15px"}}
+                            <Box component="img" sx = {{width:320,height:300,borderRadius: "15px",objectFit: "cover",}}
                                  src={"http://localhost:8081/images/questions/" + picture}>
                             </Box>
                         </Button>

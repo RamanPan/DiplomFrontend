@@ -11,6 +11,7 @@ import {API_GET_USER_PICTURE} from "../utils/constans";
 import {useNavigate} from "react-router";
 import Button from "@mui/material/Button";
 import useStore from "../utils/useStore";
+import {USER_ID} from "../pages/SingInSide";
 
 
 export var PASSING_TEST;
@@ -28,7 +29,7 @@ const TestCard = (props) => {
     });
 
     const handlerButtonTestCard = () => {
-        testsStore.getTests({"id": props.id}).then(r => {
+        testsStore.getTests({"id": props.id, "userId" : USER_ID}).then(r => {
             console.log(testsStore.passingTest.id)
             PASSING_TEST = testsStore.passingTest;
             AVATAR = avatar;
@@ -36,6 +37,11 @@ const TestCard = (props) => {
         });
 
     }
+    const getMark = () => {
+        if(props.mark === 0) return "-";
+        else return props.mark.toFixed(1);
+    }
+
     return (
         <div>
             <Button onClick={handlerButtonTestCard} sx = {{mt:3,mr:2}}>
@@ -44,6 +50,7 @@ const TestCard = (props) => {
                 component="img"
                 height="200"
                 image={"http://localhost:8081/images/tests/" + props.picture}
+                sx = {{objectFit: "cover",}}
             />
             <CardContent sx = {{alignItems: 'flex-start',minHeight:210}}>
                 <Typography variant="h4" color="another" align="left">
@@ -55,7 +62,7 @@ const TestCard = (props) => {
 
             </CardContent>
                 <Grid container sx = {{ml: 2, display: 'flex',alignItems: 'flex-start',}}>
-                    <StarIcon /> {props.mark.toFixed(1)}
+                    <StarIcon /> {getMark()}
                     <QuestionMarkIcon /> {props.numberQuestions}
                     <Typography sx = {{ml:7,mr:1, fontSize:16,mt:0.4}}>{props.author}</Typography>
                     <Avatar sx = {{fontSize:14,mr:0.3,mt:-0.5}} src={"http://localhost:8081/images/users/" + avatar}/>

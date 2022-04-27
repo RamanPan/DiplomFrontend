@@ -26,6 +26,10 @@ const ExtendedTestCard = (props) => {
             navigate("/catalog/testPass");
         })
     };
+    const getMark = () => {
+        if(props.test.mark === 0) return "-";
+        else return props.test.mark.toFixed(1);
+    }
 
 
     return (
@@ -34,6 +38,7 @@ const ExtendedTestCard = (props) => {
                 component="img"
                 height="360"
                 image={"http://localhost:8081/images/tests/" + props.test.picture}
+                sx = {{objectFit: "cover",}}
             />
             <CardContent sx = {{}}>
                 <Typography variant="h4" color="another" align="center">
@@ -43,13 +48,13 @@ const ExtendedTestCard = (props) => {
                     {props.test.description}
                 </Typography>
                 <Grid container sx = {{mt: 14,ml:"138px", display: 'flex',alignItems: 'flex-start',}}>
-                    <StarIcon /> <Typography sx = {{mr:1, fontSize:18}}>{props.test.mark.toFixed(1)} </Typography>
+                    <StarIcon /> <Typography sx = {{mr:1, fontSize:18}}>{getMark()} </Typography>
                     <QuestionMarkIcon /> <Typography sx = {{mr:1, fontSize:18}}>{props.test.numberQuestions} </Typography>
                     <CalendarMonthIcon/><Typography sx = {{mr:1, fontSize:18}}>{props.test.created.substring(0,10)}</Typography>
                     <Avatar sx = {{fontSize:16,mr:1,mt:-0.5}} src={"http://localhost:8081/images/users/" + AVATAR}/>
                     <Typography sx = {{mr:1, fontSize:18}}>{props.test.author}</Typography>
                 </Grid>
-                <Button fullWidth sx = {{borderRadius:"15px"}} size = "large" onClick={handleClick} variant="contained">Начать</Button>
+                <Button fullWidth sx = {{borderRadius:"15px",mt:0.5}} size = "large" onClick={handleClick} variant="contained">Начать</Button>
             </CardContent>
 
         </Card>

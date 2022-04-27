@@ -58,7 +58,7 @@ const Result = (props) => {
     }
     const handleClickAddOrDeleteResult = () => {
         if (!switchBut) {
-            let test = props.test_id;
+            let testLong = props.test_id;
             let startCondition = value[0];
             let endCondition = value[1];
             let obj = {
@@ -67,7 +67,7 @@ const Result = (props) => {
                 picture,
                 startCondition,
                 endCondition,
-                test,
+                testLong,
                 correctness
             };
             Object.assign(resultState, resultState, obj)
@@ -122,7 +122,7 @@ const Result = (props) => {
                             <label>
                                 <Input accept="image/*" id="contained-button-file" name="file" onChange={uploadHandler} multiple type="file"/>
                                 <Button component="span" sx={{backgroundColor: '#F1DCC9',maxWidth: 300, height:300, mt: 1,mr: 14,borderRadius: "15px",}}>
-                                    <Box component="img" sx = {{width:320,height:300,borderRadius: "15px"}}
+                                    <Box component="img" sx = {{width:320,height:300,objectFit: "cover",borderRadius: "15px"}}
                                          src={"http://localhost:8081/images/results/" + picture}>
                                     </Box>
                                 </Button>

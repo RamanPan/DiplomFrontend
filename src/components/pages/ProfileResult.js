@@ -6,29 +6,32 @@ import {ButtonGroup} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router";
 import {NICKNAME, PICTURE, USER_ID} from "./SingInSide";
-import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import {PICTURE_UPDATE} from "./UpdateUser";
 import useStore from "../utils/useStore";
-import {TESTS_FOR_PROFILE} from "./Profile";
-import TestCreatorCard from "../UI/TestCreatorCard";
-const ProfileTest = () => {
+import TestPassedCard from "../UI/TestPassedCard";
+
+const ProfileResult = () => {
     const navigate = useNavigate()
     const [pathPicture, setPathPicture] = useState("http://localhost:8081/images/users/default_avatar.png");
-    const {testsStore,userResultsStore} = useStore();
+    const {usersStore,testsStore,userResultsStore} = useStore();
+    const [isStudent, setIsStudent] = useState(false);
+
     useEffect(() => {
         if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
         if(PICTURE_UPDATE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)}
+        if(usersStore.me.role === "ROLE_STUDENT") setIsStudent(true);
     });
 
     const changePageToLk = () => {
-            navigate("/lk");
+        navigate("/lk");
     }
 
-    const changePageToResult = () => {
-        userResultsStore.getResultsByUser({"id": USER_ID}).then(r => {
-            navigate("/lk/res")
-        })}
+    const changePageToTests = () => {
+        testsStore.getTestsByAuthor({"author" : NICKNAME}).then(r => {
+            navigate("/lk/tests")
+        })
+    }
 
     return (
         <div>
@@ -55,17 +58,16 @@ const ProfileTest = () => {
                     </Typography>
                     <ButtonGroup sx = {{mt: 1,ml:72}} variant="contained" aria-label="outlined primary button group" color='secondary' size = 'large'>
                         <Button onClick={changePageToLk}>Профиль</Button>
-                        <Button onClick={changePageToResult}>Результаты</Button>
-                        <Button><Typography sx = {{color: '#9F4636'}}>Тесты</Typography></Button>
+                        <Button > <Typography sx = {{color: '#9F4636'}}>Результаты</Typography></Button>
+                        {isStudent ? (<div/>):(<Button onClick={changePageToTests}>Тесты</Button>)}
                     </ButtonGroup>
                     <Grid container sx = {{width:1400}}>
-                        <Grid sx = {{width:400, mt:4,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
+                        <Grid sx = {{mt:4,width:400,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
                             <Avatar sx = {{height:400,width:400,backgroundColor: '#FFFFFF'}} src={pathPicture} />
                             <Grid><Typography component="h1" variant="h1">{NICKNAME}</Typography></Grid>
                         </Grid>
-                        <Grid container sx = {{ml:22,width:820}}>
-                            {testsStore.tests.map(data =>(<TestCreatorCard id = {data.id} testType = {data.testType} picture = {data.picture} tittle = {data.name} author = {data.author} created = {data.created} description = {data.description} mark = {data.mark} numberQuestions = {data.numberQuestions}/>))}
-                        </Grid>
+                        <Grid container sx = {{ml:15,width:878}}>
+                            {userResultsStore.userResults.map(data =>(<TestPassedCard testResult = {data}/>))}</Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -74,4 +76,4 @@ const ProfileTest = () => {
 
 };
 
-export default ProfileTest;
+export default ProfileResult;

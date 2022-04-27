@@ -8,6 +8,12 @@ import React from "react";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const TestCreatorCard = (props) => {
+
+    const getMark = () => {
+        if(props.mark === 0) return "-";
+        else return props.mark.toFixed(1);
+    }
+
     return (
         <div>
             <Button sx = {{mt:4,ml:5.5}}>
@@ -16,6 +22,7 @@ const TestCreatorCard = (props) => {
                         component="img"
                         height="200"
                         image={"http://localhost:8081/images/tests/" + props.picture}
+                        sx = {{objectFit: "cover",}}
                     />
                     <CardContent sx = {{alignItems: 'flex-start',minHeight: 200}}>
                         <Typography variant="h4" color="another" align="left">
@@ -27,7 +34,7 @@ const TestCreatorCard = (props) => {
 
                     </CardContent>
                     <Grid container sx = {{ml: 2, display: 'flex',alignItems: 'flex-start',}}>
-                        <StarIcon /> <Typography sx = {{mr:1, fontSize:18}}>{props.mark.toFixed(1)} </Typography>
+                        <StarIcon /> <Typography sx = {{mr:1, fontSize:18}}>{getMark()} </Typography>
                         <QuestionMarkIcon /><Typography sx = {{mr:1, fontSize:18}}>{props.numberQuestions}</Typography>
                         <CalendarMonthIcon/><Typography sx = {{mr:1, fontSize:18}}>{props.created.substring(0,10)}</Typography>
                     </Grid>

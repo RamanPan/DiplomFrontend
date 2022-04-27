@@ -14,37 +14,51 @@ import {NICKNAME} from "./SingInSide";
 import {useNavigate} from "react-router";
 import useStore from "../utils/useStore";
 import {observer} from "mobx-react-lite";
-
 const Catalog = () => {
     const navigate = useNavigate();
     const {testsStore} = useStore();
     const [ifFirst, setIfFirst] = useState(false);
     const [filter, setFilterType] = useState(types[3]);
     let filterType;
+    const buttonOld = document.getElementById("old")
+    const buttonNew = document.getElementById("new")
+    const buttonBest = document.getElementById("best")
+
     useEffect(() => {
-        if(NICKNAME === undefined) navigate("/login")
         if(!ifFirst) {testsStore.getTests().then();setIfFirst(true)}
     });
     const handlerOldTests = () => {
+        buttonOld.style.color = "#9F4636";
+        buttonBest.style.color = "#000000";
+        buttonNew.style.color = "#000000";
+
         testsStore.getOldTests().then();
-        navigate("/catalog")
     }
     const handlerNewTests = () => {
+        buttonOld.style.color = "#000000";
+        buttonBest.style.color = "#000000";
+        buttonNew.style.color = "#9F4636";
         testsStore.getNewTests().then();
     }
     const handlerBestTests = () => {
+        buttonOld.style.color = "#000000";
+        buttonBest.style.color = "#9F4636";
+        buttonNew.style.color = "#000000";
         testsStore.getBestTests().then();
     }
     const handlerFilterTests = () => {
+        buttonOld.style.color = "#000000";
+        buttonBest.style.color = "#000000";
+        buttonNew.style.color = "#000000";
         testsStore.getFilterTests(filterType).then();
     }
     return (
-        <div className="sexScroll">
+        <div style={{justifyContent:'center',}}>
            <Navigation/>
             <Grid container component="main"
                   style={{}}
                   sx={{
-
+                      justifyContent:'center',
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',}}>
                     <Box
@@ -54,7 +68,6 @@ const Catalog = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'flex-start',
-                            color: '#00000'
                         }}
                     >
                         <Typography component="h1" variant="h1" sx = {{mr:0.5}}>
@@ -66,9 +79,9 @@ const Catalog = () => {
                         {/*<Button variant="contained" color="secondary" size="large" sx={{height: 56,width: 135,borderRadius: 3.5}}>Лучшие </Button>*/}
                         {/*<Button variant="contained" color="secondary" size="large" sx={{height: 56,width: 135,borderRadius: 3.5}}>Старые </Button>*/}
                                 <ButtonGroup sx = {{borderRadius:"15px",mr:3.5,height: 56,}} variant="contained" aria-label="outlined primary button group" color='secondary' size = 'large'>
-                                    <Button onClick={handlerNewTests}>Новые</Button>
-                                    <Button onClick={handlerOldTests}>Старые</Button>
-                                    <Button onClick={handlerBestTests}>Лучшие</Button>
+                                    <Button onClick={handlerNewTests}><Typography id = "new">Новые</Typography></Button>
+                                    <Button onClick={handlerOldTests}><Typography id = 'old'>Старые</Typography></Button>
+                                    <Button onClick={handlerBestTests}><Typography id = 'best'>Лучшие</Typography></Button>
                                 </ButtonGroup>
                                 <Autocomplete size="medium"
                                     id="combo"
@@ -82,13 +95,12 @@ const Catalog = () => {
                                     PaperComponent={({ children }) => (
                                         <Paper style={{ background: '#F1DCC9' }}>{children}</Paper>
                                     )}
-                                    renderInput={(params) => <TextField {...params} label="Фильтрация по типу теста" />}
+                                    renderInput={(params) => <TextField  {...params} label="Фильтрация по типу теста" />}
                                 />
                             </Box>
                             <div className='break'/>
                            <Grid container sx = {{
-                               width: 1400,
-                               ml: 0
+                               width: 1400
                                }}>
                                {testsStore.tests.map(data =>(<TestCard id = {data.id} testType = {data.testType} picture = {data.picture} tittle = {data.name} author = {data.author} created = {data.created} description = {data.description} mark = {data.mark} numberQuestions = {data.numberQuestions}/>))}
                            </Grid>

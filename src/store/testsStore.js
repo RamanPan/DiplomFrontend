@@ -9,7 +9,7 @@ import {
     API_GET_NEW_TESTS,
     API_GET_OLD_TESTS,
     API_GET_TEST,
-    API_GET_TESTS
+    API_GET_TESTS, API_GET_TESTS_BY_AUTHOR
 } from "../components/utils/constans";
 
 export var passTest;
@@ -85,6 +85,10 @@ const TestStore = types
                     getBestTests: flow(function* () {
                         let actual = yield getReq(API_GET_BEST_TESTS);
                         self.tests = cast(actual);
+                    }),
+                    getTestsByAuthor: flow(function* (data) {
+                    let actual = yield postReq(API_GET_TESTS_BY_AUTHOR,data);
+                    self.tests = cast(actual);
                     }),
 
 

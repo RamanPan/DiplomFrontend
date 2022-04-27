@@ -9,8 +9,8 @@ import {deleteReq, postReq} from "../utils/apiCalls";
 import {API_CREATE_USERS_ANSWER, API_DELETE_USERS_ANSWER} from "../utils/constans";
 import { USER_ID} from "../pages/SingInSide";
 import {ID_USER_TEST} from "./ExtendedTestCard";
+import useStore from "../utils/useStore";
 
-export var ID_USERS_ANSWER;
 const PassingQuestion = (props) => {
     const [isFirst, setIsFirst] = useState(false);
     const [isSecond, setIsSecond] = useState(false);
@@ -18,29 +18,31 @@ const PassingQuestion = (props) => {
     const [isFourth, setIsFourth] = useState(false);
     const [isFive, setIsFive] = useState(false);
     const [counter,setCounter] = useState(1);
+    const {userAnswersStore} = useStore();
     // const [isNew, setIsNew] = useState(false);
     let answer;
-    let id = ID_USERS_ANSWER;
+    let id;
     if (counter === props.count){
         setIsFirst(false);
         setIsSecond(false);
         setIsThird(false);
         setIsFourth(false);
         setIsFive(false);
+        id = userAnswersStore.id;
         setCounter((prevState) => {
             return (prevState + 1)
     })
     }
     const handleFirstAnswer = () => {
+        const doc = document.getElementById("first")
         if(!isFirst) {
-            postReq(API_CREATE_USERS_ANSWER,{"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[0].statement})
-                .then(r => {
-                    ID_USERS_ANSWER = r
-                    setIsFirst(true)
-                })
-
+            doc.style.backgroundColor = "#ffd700";
+            userAnswersStore.createUserAnswer({"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[0].statement}).then(r => {
+                setIsFirst(true)
+            })
         }
         else {
+            doc.style.backgroundColor = "#000000";
             deleteReq(API_DELETE_USERS_ANSWER,id).then(
                 r => {
                     setIsFirst(false)
@@ -49,16 +51,16 @@ const PassingQuestion = (props) => {
         }
     }
     const handleSecondAnswer = () => {
+        const doc = document.getElementById("second")
         if(!isSecond) {
-            postReq(API_CREATE_USERS_ANSWER,{"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[1].statement})
-                .then(r => {
-                    ID_USERS_ANSWER = r
-                    setIsSecond(true)
-                })
+            doc.style.backgroundColor = "#ffd700";
+            userAnswersStore.createUserAnswer({"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[1].statement}).then(r => {
+                setIsSecond(true)
+            })
 
         }
         else {
-
+            doc.style.backgroundColor = "#000000";
             deleteReq(API_DELETE_USERS_ANSWER,id).then(
                 r => {
                     setIsSecond(false)
@@ -67,15 +69,16 @@ const PassingQuestion = (props) => {
         }
     }
     const handleThirdAnswer = () => {
+        const doc = document.getElementById("third")
         if(!isThird) {
-            postReq(API_CREATE_USERS_ANSWER,{"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[2].statement})
-                .then(r => {
-                    ID_USERS_ANSWER = r
-                    setIsThird(true)
-                })
+            doc.style.backgroundColor = "#ffd700";
+            userAnswersStore.createUserAnswer({"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[2].statement}).then(r => {
+                setIsThird(true)
+            })
 
         }
         else {
+            doc.style.backgroundColor = "#000000";
             deleteReq(API_DELETE_USERS_ANSWER,id).then(
                 r => {
                     setIsThird(false)
@@ -85,14 +88,15 @@ const PassingQuestion = (props) => {
         }
     }
     const handleFourthAnswer = () => {
+        const doc = document.getElementById("fourth")
         if(!isFourth) {
-            postReq(API_CREATE_USERS_ANSWER,{"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[3].statement})
-                .then(r => {
-                    ID_USERS_ANSWER = r
-                    setIsFourth(true)
-                })
+            doc.style.backgroundColor = "#ffd700";
+            userAnswersStore.createUserAnswer({"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : props.answers[3].statement}).then(r => {
+                setIsFourth(true)
+            })
         }
         else {
+            doc.style.backgroundColor = "#000000";
             deleteReq(API_DELETE_USERS_ANSWER,id).then(
                 r => {
                     setIsFourth(false)
@@ -101,28 +105,36 @@ const PassingQuestion = (props) => {
 
         }
     }
+    const getAnswerOne = () => {
+        return props.answers[0];
+
+    }
     const getAnswerTwo = () => {
-        if(props.answers[1] !== undefined) return props.answers[1].statement;
-        else return " ";
+        return props.answers[1];
+
     }
     const getAnswerThree = () => {
-        if(props.answers[2] !== undefined) return props.answers[2].statement;
-        else return " ";
+        return props.answers[2];
+
     }
     const getAnswerFour = () => {
-        if(props.answers[3] !== undefined) return props.answers[3].statement;
-        else return " ";
+        return props.answers[3];
+
     }
+    const isUndefined = (value) => {
+      return value !== undefined;
+    }
+
     const uploadAnswer = (event) => {
-        const {value, name} = event.target;
+        const {value} = event.target;
         answer = value;
     }
     const handleAnswer = () => {
         if(!isFive) {
-        postReq(API_CREATE_USERS_ANSWER,{"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : answer}).then(r => {
-            ID_USERS_ANSWER = r
-            setIsFive(true)
-        })}
+            userAnswersStore.createUserAnswer({"user": USER_ID, "userTest":ID_USER_TEST, "question" : props.question.id, "answer" : answer}).then(r => {
+                setIsFive(true)
+            })
+        }
         else {deleteReq(API_DELETE_USERS_ANSWER,id).then(
             r => {
                 setIsFive(false)
@@ -132,8 +144,8 @@ const PassingQuestion = (props) => {
     }
     }
     return (
-        <div>
-                <Box component="img" sx = {{width:600,height:500,borderRadius: "15px"}}
+        <div style={{justifyContent:'center',}}>
+                <Box component="img" sx = {{width:600,objectFit: "cover",height:500,borderRadius: "15px"}}
                                 src={"http://localhost:8081/images/questions/" + props.question.picture}/>
                 <Grid container sx={{ml: 2,mt: 0.5}}>
                 <Grid sx = {{width:600,}} alignItems='center'>
@@ -150,12 +162,12 @@ const PassingQuestion = (props) => {
                         />   {isFive? (<Button variant = "contained" sx={{ml:3,width:180,color: '#ffd700',height:60,borderRadius: "15px"}} onClick={handleAnswer}>Я передумал!</Button>):(<Button variant = "contained" sx={{ml:3,width:180,height:60,borderRadius: "15px"}} onClick={handleAnswer}>Утвердить</Button>)}
                     </Grid> ) : (<Grid>
                     <Grid container sx = {{mt:2}}>
-                        {isFirst ? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleFirstAnswer}>{props.answers[0].statement}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFirstAnswer}>{props.answers[0].statement}</Button>)}
-                        {isSecond ?(<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{getAnswerTwo()}</Button>): (<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{getAnswerTwo()}</Button>)}
+                        {isUndefined(getAnswerOne()) ? (<Button variant = "contained" id = "first" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFirstAnswer}>{props.answers[0].statement}</Button>):(<div/>)}
+                        {isUndefined(getAnswerTwo()) ?(<Button variant = "contained" id ="second" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleSecondAnswer}>{props.answers[1].statement}</Button>): (<div/>)}
                     </Grid>
                     <Grid container sx = {{mt:2,mb:2}}>
-                        {isThird? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{getAnswerThree()}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{getAnswerThree()}</Button>)}
-                        {isFourth? (<Button variant = "contained" sx={{ml:5,width:230,color: '#ffd700',height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{getAnswerFour()}</Button>):(<Button variant = "contained" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{getAnswerFour()}</Button>)}
+                        {isUndefined(getAnswerThree()) ?(<Button variant = "contained" id = "third" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleThirdAnswer}>{props.answers[2].statement}</Button>):(<div/>)}
+                        {isUndefined(getAnswerFour()) ?(<Button variant = "contained" id = "fourth" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFourthAnswer}>{props.answers[3].statement}</Button>):(<div/>)}
                     </Grid>
                 </Grid>)}
                 </Grid>

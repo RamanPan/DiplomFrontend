@@ -15,6 +15,8 @@ import ChangePassword from "./components/pages/ChangePassword";
 import BeforeTestPass from "./components/pages/BeforeTestPass";
 import PassingTest from "./components/pages/PassingTest";
 import AfterTestPass from "./components/pages/AfterTestPass";
+import SetPercents from "./components/pages/SetPercents";
+import ProfileResult from "./components/pages/ProfileResult";
 
 const App = () => {
     return (
@@ -35,8 +37,10 @@ const App = () => {
                     <Route path="/construct" element={<Construct/>}/>
                     <Route path="/construct/addQuestions" element={<AddQuestions/>}/>
                     <Route path="/construct/addResults" element={<AddResults/>}/>
+                    <Route path="/construct/setPercents" element={<SetPercents/>}/>
                     <Route path="/lk" element={<Profile/>}/>
                     <Route path="/lk/update" element={<UpdateUser/>}/>
+                    <Route path="/lk/res" element={<ProfileResult/>}/>
                    <Route path="/lk/tests" element={<ProfileTest/>}/>
                </Routes></BrowserRouter>
 

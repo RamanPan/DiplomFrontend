@@ -16,10 +16,6 @@ const AddQuestions = () => {
     const[questions,setQuestions] = useState([]);
     const [counter,setCounter] = useState(1);
     const navigate = useNavigate()
-    useEffect(() => {
-        if(NICKNAME === undefined) navigate("/login")
-
-    });
 
     const handleClickAddQuestion = () => {
         setQuestions([
@@ -36,12 +32,17 @@ const AddQuestions = () => {
             <Grid  component="main"
                   style={{}}
                   sx={{
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',}}>
+                      justifyContent:'center',
+                      justifyItems:'center',
+                      maxWidth:"1920px",
+                      maxHeight: '300vh',
+                      backgroundPosition: 'center',
+                      display: 'inline-block'}}>
                 <Box
                     sx={{
                         my: 8,
                         mx: 16,
+                        justifyContent:'center',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'flex-start',

@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {API_CREATE_TEST,  API_UPLOAD_TEST_PICTURE, types} from "../utils/constans";
+import {API_CREATE_TEST, API_UPLOAD_TEST_PICTURE, deterministicOptions, types} from "../utils/constans";
 import TextField from "@mui/material/TextField";
 import {Autocomplete} from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -20,30 +20,17 @@ export const Input = styled('input')({
 });
 export var TEST_ID = 0;
 const Construct = () => {
-    const [constructState,setConstructState] = useState({});
     const [testType,setType] = useState(types[0]);
+    const [name,setName] = useState("");
+    const [desc,setDesc] = useState("");
     const [picture, setPicture] = useState("");
     const [isPicture,setIsPicture] = useState(false);
-    const [author,setAuthor] = useState("");
     const {usersStore} = useStore();
     const [isCreate,setIsCreate] = useState(false);
+    const [isDeterministic, setIsDeterministic] = useState(false);
+    const [optionForDeterministicType, setOption] = useState(deterministicOptions[0]);
     const navigate = useNavigate()
-    useEffect(() => {
-        if(NICKNAME === undefined) navigate("/login")
 
-    });
-
-    const updateConstructState = (event) => {
-        const {value, name} = event.target;
-        if(author === "") setAuthor(usersStore.me.nickname)
-        setConstructState(prevConstructState => ({
-            ...prevConstructState,
-            testType,
-            author,
-            picture,
-            [name]: value,
-        }));
-    };
     const uploadHandler = (event) => {
         if(event !== undefined) {
         const data = new FormData();
@@ -57,9 +44,24 @@ const Construct = () => {
         }
     }
 
+    const updateName = (event) => {
+      const {value} = event.target;
+      setName(value);
+    }
+    const updateDesc = (event) => {
+        const {value} = event.target;
+        setDesc(value);
+    }
+
     const handleSubmit = () => {
-        console.log(constructState)
-            postReq(API_CREATE_TEST, constructState).then(response => {
+            postReq(API_CREATE_TEST, {
+                "name" : name,
+                "description" : desc,
+                "author": NICKNAME,
+                "optionForDeterministicType" : optionForDeterministicType,
+                "testType" : testType,
+                "picture" : picture
+            }).then(response => {
                 usersStore.needUser({"id": usersStore.me.id}).then()
                 TEST_ID = response
                 console.log(TEST_ID)
@@ -76,20 +78,20 @@ const Construct = () => {
             <Grid container component="main"
                   style={{}}
                   sx={{
-                      maxWidth: '500vh',
+                      justifyContent:'center',
+                      justifyItems:'center',
+                      maxWidth:"1920px",
                       maxHeight: '300vh',
                       backgroundPosition: 'center',
                         display: 'inline-block'}}>
                 <Box
                     sx={{
                         my: 8,
-                        background: "transparent",
+                        justifyContent:'center',
                         mx: 16,
                         display: 'flex',
                         alignItems: 'flex-start',
                         borderRadius: "15px",
-                        maxWidth: '200vh',
-                        maxHeight: '150vh',
                         flexDirection: 'column',
                         '& button': { marginRight: 'auto', marginLeft: 'auto'}
                     }}
@@ -107,15 +109,30 @@ const Construct = () => {
                             color="secondary"
                             onChange={(event,newValue) => {
                                 setType(newValue);
-                                console.log(newValue)
+                                if(newValue === "Детерминированный") setIsDeterministic(true);
                             }}
                             renderInput={(params) => <TextField {...params} label="Выберите тип теста" />}
                         />
+                    {isDeterministic ?
+                        (<div><Typography align = "left" variant="h2" sx={{mt: 2, mb: 2 }}>Опция сортировки</Typography>
+                        <Autocomplete
+                        sx={{color: "#F1DCC9", minWidth: 400}}
+                        name = "option"
+                        value={optionForDeterministicType}
+                        options={deterministicOptions}
+                        color="secondary"
+                        onChange={(event,newValue) => {
+                            setOption(newValue);
+                    }}
+                        renderInput={(params) => <TextField {...params} label="Выберите опцию" />}
+                        />
+                        </div>) : (<div/>)
+                    }
                         <Typography variant="h2" sx={{mt: 2}}>Название</Typography>
                         <TextField
                         margin="normal"
                         required
-                        onChange={updateConstructState}
+                        onChange={updateName}
                         label="Введите название"
                         name="name"
                         sx={{minWidth: 400}}
@@ -126,7 +143,7 @@ const Construct = () => {
                         label="Введите описание"
                         name="description"
                         multiline
-                        onChange={updateConstructState}
+                        onChange={updateDesc}
                         sx={{minWidth: 400}}
                         rows={4}
                     />
@@ -136,7 +153,7 @@ const Construct = () => {
                         {isPicture ? (<label htmlFor="contained-button-file">
                                 <Input accept="image/*" id="contained-button-file" name = "file" onChange={uploadHandler} multiple type="file" />
                                 <Button component="span" sx={{width:300,height:300,borderRadius: "15px",mr: 30}}>
-                                   <Box component="img" sx = {{width:315,height:305,borderRadius: "15px"}}
+                                   <Box component="img" sx = {{width:315,height:305,objectFit: "cover",borderRadius: "15px"}}
                                         src={"http://localhost:8081/images/tests/" + picture}/>
                                 </Button>
                             </label>) :

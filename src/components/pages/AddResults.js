@@ -18,7 +18,6 @@ const AddResults = () => {
     const [counter,setCounter] = useState(1);
     const navigate = useNavigate()
     useEffect(() => {
-        if(NICKNAME === undefined) navigate("/login")
         postReq(API_SET_NQ_TEST,{"id":TEST_ID}).then();
     });
     const handleClickAddResult = () => {
@@ -33,18 +32,26 @@ const AddResults = () => {
     const handleComplete = () => {
         navigate("/catalog")
     }
+    const handlePercent = () => {
+        navigate("/construct/setPercents")
+    }
     return (
         <div>
             <Navigation/>
             <Grid  component="main"
                    style={{}}
                    sx={{
-                       backgroundSize: 'cover',
-                       backgroundPosition: 'center',}}>
+                       justifyContent:'center',
+                       justifyItems:'center',
+                       maxWidth:"1920px",
+                       maxHeight: '300vh',
+                       backgroundPosition: 'center',
+                       display: 'inline-block'}}>
                 <Box
                     sx={{
                         my: 8,
                         mx: 16,
+                        justifyContent:'center',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'flex-start',
@@ -59,10 +66,11 @@ const AddResults = () => {
                     mx: 16,width: 1200,mb: 3}}>
                     <Button sx = {{borderRadius: "8px"}} size='large' fullWidth variant="contained" onClick={handleClickAddResult} color='secondary'><Typography variant="h4">Добавить результат</Typography>  </Button>
                 </Grid>
-                <Grid container sx={{
+                <Grid container sx={{display:"flex",
                     mx: 16,width: 1200,mb: 3}}>
-                    <Button sx = {{borderRadius: "8px"}} size='large' variant="contained" color='primary'> <ArrowLeftIcon/>Назад </Button>
-                    <Button sx = {{borderRadius: "8px",ml:117.7}} size='large' onClick={handleComplete} variant="contained" color='primary'> Далее<ArrowRightIcon/> </Button>
+                    <Button sx = {{borderRadius: "8px",width:150,mr:24}} size='large' variant="contained" color='primary'> <ArrowLeftIcon/>Назад </Button>
+                    <Button sx = {{borderRadius: "8px",mr:24}} onClick={handlePercent} size='large' variant="contained" color='primary'> Установить процентное соотношение вопросов </Button>
+                    <Button sx = {{borderRadius: "8px",width:150}} size='large' onClick={handleComplete} variant="contained" color='primary'>Закончить<ArrowRightIcon/> </Button>
                 </Grid>
             </Grid>
         </div>

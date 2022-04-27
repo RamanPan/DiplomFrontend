@@ -11,10 +11,19 @@ import {postReq} from "../utils/apiCalls";
 import {MARK} from "../pages/AfterTestPass";
 import {ID_USER_TEST} from "./ExtendedTestCard";
 import useStore from "../utils/useStore";
+import {useEffect} from "react";
+import {NICKNAME} from "../pages/SingInSide";
+
 
 const NavigationThenPassingTest = (props) => {
     const navigate = useNavigate();
     const {usersStore} = useStore();
+
+    useEffect(() => {
+        if(NICKNAME === undefined) {navigate("/login"); }
+    });
+
+
     const handleExit = () => {
         if(MARK !== undefined) {
             postReq(API_SET_MARK_USERS_TEST,{"id":ID_USER_TEST,"mark":MARK}).then(r => {

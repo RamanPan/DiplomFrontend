@@ -11,15 +11,14 @@ import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export var VARIANTS_ANSWER = [];
-export var VARIANTS_ANSWER_FOR_PROPS = [];
-export var BOO = false
+export var BOO;
 const BeforeTestPass = () => {
     const navigate = useNavigate();
     const {questionStore,answerStore} = useStore();
-    if(NICKNAME === undefined) {navigate("/login")}
     useEffect(() => {
         console.log(PASSING_TEST)
-         {questionStore.birth({"id":0}).then(r =>{
+         {  BOO = false;
+             questionStore.birth({"id":0}).then(r =>{
              if(questionStore.passQuestion.type === "OPEN") {BOO = true;}
              answerStore.birth({"id":questionStore.passQuestion.id}).then(r => {
              })
@@ -44,8 +43,8 @@ const BeforeTestPass = () => {
                       alignSelf: 'center',
                       backgroundPosition: 'center',
                       display: 'flex'}}>
-                <Grid container sx = {{justifyContent:'center',mt:"20px",display:'flex',ml:"475px",mr:"475px"}}>
-                    <Grid container sx = {{ml:"100px"}}><Button onClick={handleBack} variant = "text"><ArrowBackIcon/>Назад</Button> </Grid>
+                <Grid container sx = {{justifyContent:'center',mt:"20px",width:600,display:'flex'}}>
+                    <Grid container sx = {{justifyContent:'left'}}><Button onClick={handleBack} variant = "text"><ArrowBackIcon/>Назад</Button> </Grid>
                     <Grid><ExtendedTestCard test = {PASSING_TEST}/> </Grid>
             </Grid>
             </Grid>

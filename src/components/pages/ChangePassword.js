@@ -46,7 +46,7 @@ export default function ChangePassword() {
                           backgroundPosition: 'center',
                       }}>
                     <CssBaseline/>
-                    <Grid item xs={12} sm={8} md={3.5} style={{backgroundColor: "#F1DCC9",}} component={Paper}
+                    <Grid item xs={12} sm={8} md={3.5} style={{backgroundColor: "#F1DCC9",justifyContent:'center',}} component={Paper}
                           elevation={6} square>
                         <Box
                             sx={{

@@ -10,6 +10,7 @@ export const API_GET_OLD_TESTS = 'http://localhost:8081/api/tests/getOldTests';
 export const API_GET_NEW_TESTS = 'http://localhost:8081/api/tests/getNewTests';
 export const API_SET_NQ_TEST = 'http://localhost:8081/api/tests/setNQ';
 export const API_GET_BEST_TESTS = 'http://localhost:8081/api/tests/getBestTests';
+export const API_SET_PERCENTS_QUESTIONS = 'http://localhost:8081/api/tests/setPercents';
 export const API_GET_TESTS_BY_AUTHOR = 'http://localhost:8081/api/tests/getByAuthor';
 export const API_GET_FILTER_TESTS = 'http://localhost:8081/api/tests/getFilterTests';
 export const API_GET_USERS_RESULTS = 'http://localhost:8081/api/usersResults/getResults';
@@ -43,7 +44,22 @@ export const roles = ['Студент', 'Преподаватель'];
 export const pages = ['Каталог', 'Конструктор', 'Топ'];
 export const settings = ['Личный кабинет','Выход'];
 export const types = ['Стохастический','Детерминированный','Динамический','Любой'];
-export const questionTypes = ['Закрытый','Открытый','Несколько вариантов'];
+export const deterministicOptions = [
+    'Неопределена',
+    'Легкие, Средние, Сложные',
+    'Легкие, Сложные, Средние',
+    'Сложные, Легкие, Средние',
+    'Сложные, Средние, Легкие',
+    'Средние, Легкие, Сложные',
+    'Средние, Сложные, Легкие',
+    'Политические, Культурные, Экономические',
+    'Политические, Экономические, Культурные',
+    'Экономические, Политические, Культурные',
+    'Экономические, Культурные, Политические',
+    'Культурные, Экономические, Политические',
+    'Культурные, Политические, Экономические',
+    ];
+export const questionTypes = ['Закрытый','Открытый'];
 export const questionDifficulties = ['Легкая','Средняя','Сложная'];
 export const questionCategories = ['Политическая','Культурная','Экономическая'];
 

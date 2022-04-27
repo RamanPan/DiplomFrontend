@@ -29,11 +29,6 @@ const UpdateUser = () => {
     let id = usersStore.me.id
     let picture;
     const navigate = useNavigate()
-    useEffect(() => {
-        if(NICKNAME === undefined) navigate("/login")
-
-
-    });
     const handleLogin = () => {
         console.log(loginState)
         NICKNAME  = postReq(API_SET_USER_LOGIN,loginState)
@@ -124,15 +119,19 @@ const UpdateUser = () => {
             <Grid  component="main"
                    style={{}}
                    sx={{
-                       backgroundSize: 'cover',
-                       backgroundPosition: 'center',}}>
+                       justifyContent:'center',
+                       justifyItems:'center',
+                       maxWidth:"1920px",
+                       maxHeight: '300vh',
+                       backgroundPosition: 'center',
+                       display: 'inline-block'}}>
                 <Grid container
                       sx={{
                           my: 8,
                           mx: 16,
                           display: 'flex',
                           alignItems: 'flex-start',
-                          width:1278,
+                          width:"1920px",
                       }}
                 >
                     <Typography component="h1" variant="h1" sx = {{}}>

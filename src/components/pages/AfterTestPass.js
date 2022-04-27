@@ -33,13 +33,20 @@ const AfterTestPass = () => {
     return (
         <div>
             <NavigationThenPassingTest name = {PASSING_TEST.name}/>
-            <Grid container>
-                <Grid container alignContent="center" sx = {{width:1920,mt:3,justifyContent:"center", display:"flex"}}>
-                    <Typography sx = {{fontSize:36}} align = "center">Тест пройден!</Typography> </Grid>
-                <Grid container sx = {{mt:3,width:750}}>
+            <Grid container sx = {{justifyContent:'center',
+                maxWidth:"1920px",
+                backgroundPosition: 'center',
+            }}>
+                <Grid container alignContent="center" sx = {{width:"1920px",mt:3,justifyContent:"center", display:"flex"}}>
+                    <Typography sx = {{fontSize:36}} align = "center">Тест пройден!</Typography>
+                </Grid>
+                <Grid container sx = {{mt:3,width:"750px",
+                    // backgroundColor:'#ffd700',
+                }}>
                     <Grid sx = {{ml:10,justifyContent: "flex-start"}}>
                         <Grid container>
-                            <Box component="img" sx = {{mb:3,width:400,height:400,borderRadius: "15px"}}
+                            <Box component="img" sx = {{objectFit: "cover",
+                                mb:3,width:400,height:400,borderRadius: "15px"}}
                                  src={"http://localhost:8081/images/results/" + RESULT_TEST.picture}>
                             </Box>
                             <Grid container>
@@ -64,7 +71,9 @@ const AfterTestPass = () => {
                     </Grid>
 
                 </Grid>
-                <Grid container sx = {{width:830}}>
+                <Grid container sx = {{width:"830px",
+                    // backgroundColor:'#AAA700',
+                }}>
                     {USER_ANSWERS_ON_TEST.map(data => (<UserAnswerCard answer = {data}/>))}
                 </Grid>
 

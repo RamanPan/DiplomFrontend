@@ -47,6 +47,7 @@ export default function SignUp() {
             <Grid container component="main"
                   style={{backgroundImage: `url(${Image})`,}}
                   sx={{
+
                       height: '100vh',
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',}}>

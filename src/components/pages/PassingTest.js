@@ -22,14 +22,9 @@ export var RESULT_TEST;
 export var USER_ANSWERS_ON_TEST = [];
 const PassingTest = () => {
   const [counter,setCounter] = useState(1);
-  const {questionStore,answerStore} = useStore();
+  const {questionStore,answerStore,userAnswersStore} = useStore();
   const [isOpen, setIsOpen] = useState(BOO);
   const navigate = useNavigate();
-  useEffect(() => {
-    if(NICKNAME === undefined) navigate("/login")
-
-    console.log(VARIANTS_ANSWER);
-    })
 
   const handlerUserAnswer = () => {
     if(counter === PASSING_TEST.numberQuestions) {
@@ -45,7 +40,7 @@ const PassingTest = () => {
     }
     else
     {
-      questionStore.birth({"id": counter}).then(r => {
+      questionStore.birth({"id": counter,"idUserAnswer" : userAnswersStore.id}).then(r => {
           if(questionStore.passQuestion.type === "OPEN") setIsOpen(true)
           else setIsOpen(false)
         answerStore.birth({"id": questionStore.passQuestion.id}).then(r => {
@@ -63,14 +58,15 @@ const PassingTest = () => {
         <Grid container component="main"
               style={{}}
               sx={{
-                maxWidth: '500vh',
-                maxHeight: '300vh',
-                backgroundPosition: 'center',
-                display: 'flex'}}>
-          <Grid container sx = {{mt:"20px",display:'flex',ml:"550px",mr:"475px"}}>
-            <Grid container><Typography variant = "h4" align = 'center' sx = {{ml:27.7}} >Вопрос {counter + " из " + PASSING_TEST.numberQuestions }</Typography></Grid>
+                  justifyContent:'center',
+                  justifyItems:'center',
+                  maxWidth:"1920px",
+                  backgroundPosition: 'center',
+                  display: 'inline-block'}}>
+          <Grid container sx = {{mt:"20px",display:'flex',justifyContent:'center'}}>
+            <Grid container sx={{justifyContent:'center'}}><Typography variant = "h4" sx = {{}} >Вопрос {counter + " из " + PASSING_TEST.numberQuestions }</Typography></Grid>
             <PassingQuestion count = {counter} question = {questionStore.passQuestion} answers = {answerStore.answers} isOpen = {isOpen}/>
-            <Button variant="contained" color='secondary' onClick={handlerUserAnswer} sx = {{width:400,border:'#000000',mt:2, height:50,ml:13,borderRadius: "15px"}}>Продолжить</Button>
+            <Grid container sx={{justifyContent:'center',}}><Button variant="contained" color='secondary' onClick={handlerUserAnswer} sx = {{border:'#000000',mt:1.5,width:400, height:50,borderRadius: "15px"}}>Продолжить</Button></Grid>
           </Grid>
         </Grid>
 

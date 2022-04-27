@@ -16,7 +16,7 @@ const Answer = (props) => {
     const [agree, setAgree] = useState(false);
     const [answerState] = useState({});
     const [statement, setStatement] = useState("");
-    let question = props.id_quest;
+    let questionLong = props.id_quest;
 
     const changeCorrectness = () => {
         setCorrectness(!correctness)
@@ -30,7 +30,7 @@ const Answer = (props) => {
             let obj = {
                 correctness,
                 statement,
-                question
+                questionLong
             };
             Object.assign(answerState, answerState, obj)
             console.log(answerState)

@@ -16,6 +16,7 @@ const UserAnswerCard = (props) => {
                     component="img"
                     height="170"
                     image={"http://localhost:8081/images/questions/" + props.answer.picture}
+                    sx = {{objectFit: "cover",}}
                 />
                 <CardContent sx = {{alignItems: 'flex-start',}}>
                     <Typography variant="h4" color="another" align="left">
