@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import Navigation from "../UI/Navigation";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {API_CREATE_TEST, API_UPLOAD_TEST_PICTURE, deterministicOptions, types} from "../utils/constans";
+import {API_CREATE_TEST, API_UPLOAD_TEST_PICTURE, deterministicOptions, types, typesConstruct} from "../utils/constans";
 import TextField from "@mui/material/TextField";
 import {Autocomplete} from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -20,7 +20,7 @@ export const Input = styled('input')({
 });
 export var TEST_ID = 0;
 const Construct = () => {
-    const [testType,setType] = useState(types[0]);
+    const [testType,setType] = useState(typesConstruct[0]);
     const [name,setName] = useState("");
     const [desc,setDesc] = useState("");
     const [picture, setPicture] = useState("");
@@ -105,7 +105,7 @@ const Construct = () => {
                             id="combo-box-types"
                             name = "testType"
                             value={testType}
-                            options={types}
+                            options={typesConstruct}
                             color="secondary"
                             onChange={(event,newValue) => {
                                 setType(newValue);
@@ -133,14 +133,14 @@ const Construct = () => {
                         margin="normal"
                         required
                         onChange={updateName}
-                        label="Введите название"
+                        label="Введите название(до 50 символов)"
                         name="name"
                         sx={{minWidth: 400}}
                         />
                         <Typography variant="h2" sx={{mt: 2, mb: 2 }}>Описание</Typography>
                         <TextField
                         id="outlined-multiline-static"
-                        label="Введите описание"
+                        label="Введите описание(до 1000 символов)"
                         name="description"
                         multiline
                         onChange={updateDesc}
@@ -152,8 +152,8 @@ const Construct = () => {
                         <Typography variant="h2" sx={{mt: 2, mb: 2 }}>Обложка</Typography>
                         {isPicture ? (<label htmlFor="contained-button-file">
                                 <Input accept="image/*" id="contained-button-file" name = "file" onChange={uploadHandler} multiple type="file" />
-                                <Button component="span" sx={{width:300,height:300,borderRadius: "15px",mr: 30}}>
-                                   <Box component="img" sx = {{width:315,height:305,objectFit: "cover",borderRadius: "15px"}}
+                                <Button component="span" sx={{width:490,height:440,borderRadius: "15px",mr: 30}}>
+                                   <Box component="img" sx = {{width:500,height:450,objectFit: "cover",borderRadius: "15px"}}
                                         src={"http://localhost:8081/images/tests/" + picture}/>
                                 </Button>
                             </label>) :
@@ -164,7 +164,7 @@ const Construct = () => {
                             </Button>
                         </label>)}
                     </Grid>
-                        <Button variant="contained" onClick={handleSubmit} color="primary" size="large">Далее </Button>
+                        <Button variant="contained" onClick={handleSubmit} sx = {{borderRadius:"10px",mt:4}} color="primary" size="large">Далее </Button>
                 </Box>
             </Grid>
         </div>

@@ -18,9 +18,9 @@ const PassingQuestion = (props) => {
     const [isFourth, setIsFourth] = useState(false);
     const [isFive, setIsFive] = useState(false);
     const [counter,setCounter] = useState(1);
+    const [answer, setAnswer] = useState("");
     const {userAnswersStore} = useStore();
     // const [isNew, setIsNew] = useState(false);
-    let answer;
     let id;
     if (counter === props.count){
         setIsFirst(false);
@@ -29,6 +29,7 @@ const PassingQuestion = (props) => {
         setIsFourth(false);
         setIsFive(false);
         id = userAnswersStore.id;
+        setAnswer("");
         setCounter((prevState) => {
             return (prevState + 1)
     })
@@ -105,6 +106,23 @@ const PassingQuestion = (props) => {
 
         }
     }
+    const getDifficultQuestion = () => {
+        let diff = props.question.difficult;
+        if(diff === "EASY") {return " Сложность: Легкая";}
+        else if(diff === "MEDIUM") {return " Сложность: Средняя";}
+        else {
+            return " Сложность: Тяжелая";
+        }
+    }
+    const getCategoryQuestion = () => {
+        let category = props.question.category;
+        if(category === "POLITIC") {return "Политическая";}
+        else if(category === "CULTURE") {return "Культурная";}
+        else {
+            return "Экономическая";
+        }
+    }
+
     const getAnswerOne = () => {
         return props.answers[0];
 
@@ -127,7 +145,7 @@ const PassingQuestion = (props) => {
 
     const uploadAnswer = (event) => {
         const {value} = event.target;
-        answer = value;
+        setAnswer(value);
     }
     const handleAnswer = () => {
         if(!isFive) {
@@ -145,6 +163,8 @@ const PassingQuestion = (props) => {
     }
     return (
         <div style={{justifyContent:'center',}}>
+                <Grid style={{justifyContent:'center'}} container><Typography id="diff" variant="h5">Категория: {getCategoryQuestion()} </Typography>
+                <Typography id="cat" variant="h5">{getDifficultQuestion()} </Typography></Grid>
                 <Box component="img" sx = {{width:600,objectFit: "cover",height:500,borderRadius: "15px"}}
                                 src={"http://localhost:8081/images/questions/" + props.question.picture}/>
                 <Grid container sx={{ml: 2,mt: 0.5}}>
@@ -157,9 +177,10 @@ const PassingQuestion = (props) => {
                         <TextField
                             label="Введите ответ"
                             name="answer"
+                            id="answer"
                             onChange={uploadAnswer}
                             sx={{width: 390,height:80}}
-                        />   {isFive? (<Button variant = "contained" sx={{ml:3,width:180,color: '#ffd700',height:60,borderRadius: "15px"}} onClick={handleAnswer}>Я передумал!</Button>):(<Button variant = "contained" sx={{ml:3,width:180,height:60,borderRadius: "15px"}} onClick={handleAnswer}>Утвердить</Button>)}
+                        />   {isFive? (<Button variant = "contained" sx={{ml:3,width:180,backgroundColor: '#ffd700',height:60,borderRadius: "15px"}} onClick={handleAnswer}>Я передумал!</Button>):(<Button variant = "contained" sx={{ml:3,width:180,height:60,borderRadius: "15px"}} onClick={handleAnswer}>Утвердить</Button>)}
                     </Grid> ) : (<Grid>
                     <Grid container sx = {{mt:2}}>
                         {isUndefined(getAnswerOne()) ? (<Button variant = "contained" id = "first" sx={{ml:5,width:230,height:50,borderRadius: "15px"}} onClick={handleFirstAnswer}>{props.answers[0].statement}</Button>):(<div/>)}

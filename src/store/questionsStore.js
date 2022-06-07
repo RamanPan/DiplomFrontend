@@ -1,6 +1,6 @@
 import {flow, types} from 'mobx-state-tree';
 import {postReq} from "../components/utils/apiCalls";
-import { API_GET_QUESTION} from "../components/utils/constans";
+import {API_GET_QUESTION, API_GET_QUESTIONS} from "../components/utils/constans";
 
 const Question = types
     .model('Question',{
@@ -11,19 +11,27 @@ const Question = types
         type: types.maybe(types.string),
         category: types.maybe(types.string),
         difficult: types.maybe(types.string),
+        typeNum: types.maybe(types.number),
+        categoryNum: types.maybe(types.number),
+        difficultNum: types.maybe(types.number),
+        number: types.maybe(types.number),
 
     })
 
-const QuestionStore = types.
+const QuestionsStore = types.
     model('QuestionStore',{
-        passQuestion: types.maybe(Question)
+        passQuestion: types.maybe(Question),
+        questions: types.maybe(types.array(Question))
 }).actions(self => {
         return{
                 birth: flow(function* (data) {
                         self.passQuestion = yield postReq(API_GET_QUESTION, data)
                 }),
+                getQuestions: flow(function* (data) {
+                self.questions = yield postReq(API_GET_QUESTIONS, data)
+            }),
         }
 })
 
 
-export default QuestionStore;
+export default QuestionsStore;

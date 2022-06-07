@@ -18,6 +18,7 @@ const ProfileResult = () => {
     const [isStudent, setIsStudent] = useState(false);
 
     useEffect(() => {
+        if(NICKNAME === undefined) {navigate("/login"); return}
         if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
         if(PICTURE_UPDATE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)}
         if(usersStore.me.role === "ROLE_STUDENT") setIsStudent(true);
@@ -56,14 +57,14 @@ const ProfileResult = () => {
                     <Typography component="h1" variant="h1" sx = {{}}>
                         ЛИЧНЫЙ КАБИНЕТ
                     </Typography>
-                    <ButtonGroup sx = {{mt: 1,ml:72}} variant="contained" aria-label="outlined primary button group" color='secondary' size = 'large'>
+                    <ButtonGroup sx = {{mt: 1,ml:72,height:48}} variant="contained" aria-label="outlined primary button group" color='secondary' size = 'large'>
                         <Button onClick={changePageToLk}>Профиль</Button>
                         <Button > <Typography sx = {{color: '#9F4636'}}>Результаты</Typography></Button>
                         {isStudent ? (<div/>):(<Button onClick={changePageToTests}>Тесты</Button>)}
                     </ButtonGroup>
                     <Grid container sx = {{width:1400}}>
                         <Grid sx = {{mt:4,width:400,height:410,backgroundColor:'#FFFFFF',borderRadius: "15px"}}>
-                            <Avatar sx = {{height:400,width:400,backgroundColor: '#FFFFFF'}} src={pathPicture} />
+                            <Avatar sx = {{height:400,width:400,backgroundColor: '#FFFFFF',outline: "3px solid",outlineColor:"#000000"}} src={pathPicture} />
                             <Grid><Typography component="h1" variant="h1">{NICKNAME}</Typography></Grid>
                         </Grid>
                         <Grid container sx = {{ml:15,width:878}}>

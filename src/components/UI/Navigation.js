@@ -30,7 +30,7 @@ const Navigation = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(NICKNAME === undefined) {navigate("/login"); return}
+        if(usersStore.me === undefined) {navigate("/login"); return}
         if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
         if(PICTURE_UPDATE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)}
         if(usersStore.me.role === "ROLE_STUDENT") setIsStudent(true);

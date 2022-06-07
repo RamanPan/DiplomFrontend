@@ -8,7 +8,7 @@ import {
     API_GET_FILTER_TESTS,
     API_GET_NEW_TESTS,
     API_GET_OLD_TESTS,
-    API_GET_TEST,
+    API_GET_TEST, API_GET_TEST_UPDATE,
     API_GET_TESTS, API_GET_TESTS_BY_AUTHOR
 } from "../components/utils/constans";
 
@@ -25,8 +25,9 @@ export const Test = types
         numberPasses: types.number,
         description: types.string,
         picture: types.string,
-        results: types.optional(types.array(resultsStore),[]),
-        questions: types.optional(types.array(questionsStore),[])
+        testTypeNum: types.maybe(types.number),
+        isDeterministic: types.maybe(types.boolean),
+        optionNum: types.optional(types.number,0)
     })
     .actions(self => {
             return{
@@ -63,7 +64,8 @@ const TestStore = types
                         {let actual = yield getReq(API_GET_TESTS);
                          self.tests = cast(actual);}
                         else {
-                            self.passingTest = yield postReq(API_GET_TEST, data);
+                            if(data.userId !== undefined) self.passingTest = yield postReq(API_GET_TEST, data);
+                            else self.passingTest = yield postReq(API_GET_TEST_UPDATE, data);
 
                         }
                     }),

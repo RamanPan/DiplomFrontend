@@ -45,7 +45,9 @@ const TestCard = (props) => {
     return (
         <div>
             <Button onClick={handlerButtonTestCard} sx = {{mt:3,mr:2}}>
-            <Card sx={{ width: 310, height: 450, borderRadius: "15px",border:"10px", borderColor:"#9F4636", backgroundColor: "#F1DCC9" }}>
+            <Card sx={{ width: 310, height: 450, borderRadius: "15px",
+                // outline: "5px solid",outlineColor:"#9F4636",
+                backgroundColor: "#F1DCC9" }}>
             <CardMedia
                 component="img"
                 height="200"

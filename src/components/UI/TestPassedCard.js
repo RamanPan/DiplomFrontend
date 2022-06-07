@@ -22,7 +22,7 @@ const TestPassedCard = (props) => {
     return (
         <div>
             {/*<Button onClick={handlerButtonTestCard} sx = {{mt:2}}>*/}
-                <Card sx={{ mt:4,ml:5,width: 250, minHeight: 330, borderRadius: "15px",border:"10px", borderColor:"#9F4636", backgroundColor: "#F1DCC9" }}>
+                <Card sx={{ mt:4,ml:5.3,width: 250, minHeight: 330, borderRadius: "15px",border:"10px", borderColor:"#9F4636", backgroundColor: "#F1DCC9" }}>
                     <CardMedia
                         component="img"
                         height="150"
@@ -31,7 +31,7 @@ const TestPassedCard = (props) => {
                     />
                     <CardContent sx = {{alignItems: 'flex-start',minHeight: 150,}}>
                         <Typography variant="h4" color="another" align="left">
-                            {props.testResult.header + "(" + props.testResult.result + "%)"}
+                            {props.testResult.header + "(" + props.testResult.result.toFixed(1) + "%)"}
                         </Typography>
                         <Typography variant="body2" color="another" align="left">
                             {props.testResult.description}

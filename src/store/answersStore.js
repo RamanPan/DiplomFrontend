@@ -8,9 +8,10 @@ const Answer = types
         date_register: types.maybe(types.string),
         statement: types.maybe(types.string),
         correctness:types.maybe(types.boolean),
+        number:types.maybe(types.number),
     })
 
-const AnswerStore = types
+const AnswersStore = types
     .model('AnswerStore',{
         answers: types.optional(types.array(Answer),[])
     })
@@ -24,4 +25,4 @@ const AnswerStore = types
 ;
 
 
-export default AnswerStore;
+export default AnswersStore;

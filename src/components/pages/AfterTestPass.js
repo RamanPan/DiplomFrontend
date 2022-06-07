@@ -50,7 +50,7 @@ const AfterTestPass = () => {
                                  src={"http://localhost:8081/images/results/" + RESULT_TEST.picture}>
                             </Box>
                             <Grid container>
-                                <Typography align="left" sx = {{fontSize:36,mb:1.5}}>{RESULT_TEST.header + "(" + RESULT_TEST.result + "%)"}</Typography>
+                                <Typography align="left" sx = {{fontSize:36,mb:1.5}}>{RESULT_TEST.header + "(" + RESULT_TEST.result.toFixed(1) + "%)"}</Typography>
                             </Grid>
                             <Grid>
                             <Typography variant = "h4">{RESULT_TEST.description}</Typography>

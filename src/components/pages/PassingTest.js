@@ -27,6 +27,16 @@ const PassingTest = () => {
   const navigate = useNavigate();
 
   const handlerUserAnswer = () => {
+      const doc1 = document.getElementById("first")
+      const doc2 = document.getElementById("second")
+      const doc3 = document.getElementById("third")
+      const doc4 = document.getElementById("fourth")
+      const formInp = document.getElementById("answer");
+      if(doc1 != null)doc1.style.backgroundColor = "#000000";
+      if(doc2 != null)doc2.style.backgroundColor = "#000000";
+      if(doc3 != null)doc3.style.backgroundColor = "#000000";
+      if(doc4 != null)doc4.style.backgroundColor = "#000000";
+      if(formInp != null) formInp.value = "";
     if(counter === PASSING_TEST.numberQuestions) {
       postReq(API_SET_USER_TEST_PASSED, {'user': USER_ID, 'userTest': ID_USER_TEST, 'test' : PASSING_TEST.id}).then(r => {
           RESULT_TEST = r;

@@ -61,7 +61,7 @@ const AddQuestions = () => {
                 </Grid>
                 <Grid container sx={{
                     mx: 16,width: 1200,mb: 3}}>
-                    <Button sx = {{borderRadius: "8px"}} size='large' variant="contained" component={Link} to = '/construct' color='primary'> <ArrowLeftIcon/>Назад </Button>
+                    <Button sx = {{borderRadius: "8px"}} size='large' variant="contained" component={Link} to = '/catalog' color='primary'> <ArrowLeftIcon/>Назад </Button>
                     <Button sx = {{borderRadius: "8px",ml:117.7}} size='large' component={Link} to = '/construct/addResults' variant="contained" color='primary'> Далее<ArrowRightIcon/> </Button>
                 </Grid>
                 </Grid>

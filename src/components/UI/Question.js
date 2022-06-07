@@ -52,7 +52,6 @@ const Question = (props) => {
             })
         }
         else {
-            console.log(ID_QUESTIONS)
             let id = ID_QUESTIONS[props.number - 1]
             deleteReq(API_DELETE_QUESTION,id).then(response => {
                 setSwitch(false)
@@ -113,7 +112,7 @@ const Question = (props) => {
                     {isPicture ? (
                         <label>
                         <Input accept="image/*" id="contained-button-file" name="file" onChange={uploadHandler} multiple type="file"/>
-                        <Button component="span" sx={{backgroundColor: '#F1DCC9',maxWidth: 300, height:300, mt: 1,mr: 14,borderRadius: "15px",}}>
+                        <Button component="span" sx={{backgroundColor: '#F1DCC9',maxWidth: 300, height:300, mt: 1,ml:1,mr: 14,borderRadius: "15px",}}>
                             <Box component="img" sx = {{width:320,height:300,borderRadius: "15px",objectFit: "cover",}}
                                  src={"http://localhost:8081/images/questions/" + picture}>
                             </Box>
@@ -134,7 +133,7 @@ const Question = (props) => {
                 </Typography>
                     <Button sx = {{ml:65}}><DeleteIcon/></Button>
                 </Grid>
-                    <TextField variant='outlined' name = "statement"  onChange={updateStatement} label = 'Введите текст вопроса' sx = {{backgroundColor: '#FFFFFF',mt: 1,mr:10, width:700, borderRadius: "8px",}}/>
+                    <TextField variant='outlined' name = "statement"  onChange={updateStatement} label = 'Введите текст вопроса(до 200 символов)' sx = {{backgroundColor: '#FFFFFF',mt: 1,mr:10, width:700, borderRadius: "8px",}}/>
                     <Autocomplete sx = {{mt:1}} size="medium"
                                   style={{backgroundColor: '#FFFFFF',width:700,borderRadius: 6.5}}
                                   options={questionTypes}

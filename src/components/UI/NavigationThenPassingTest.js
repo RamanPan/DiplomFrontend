@@ -38,7 +38,7 @@ const NavigationThenPassingTest = (props) => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters >
                     <Box alignItems="center" sx={{ flexGrow: 1,justifyContent:"center",alignItems:"center",color:'#F1DCC9', display: { xs: 'none', md: 'flex' } }}>
-                        <Typography align="center" sx={{ ml: 10,fontSize: 24 }}>{props.name.toUpperCase()}</Typography>
+                        <Typography align="center" sx={{ ml: 12.5,fontSize: 24 }}>{props.name.toUpperCase()}</Typography>
 
 
                     </Box>

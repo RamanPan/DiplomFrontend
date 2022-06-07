@@ -17,6 +17,10 @@ import PassingTest from "./components/pages/PassingTest";
 import AfterTestPass from "./components/pages/AfterTestPass";
 import SetPercents from "./components/pages/SetPercents";
 import ProfileResult from "./components/pages/ProfileResult";
+import UpdateResults from "./components/pages/UpdateResults";
+import UpdateQuestions from "./components/pages/UpdateQuestions";
+import UpdateTest from "./components/pages/UpdateTest";
+import UpdatePercents from "./components/pages/UpdatePercents";
 
 const App = () => {
     return (
@@ -35,9 +39,13 @@ const App = () => {
                     <Route path="/catalog/testPass" element={<PassingTest/>}/>
                     <Route path="/catalog/endTestPass" element={<AfterTestPass/>}/>
                     <Route path="/construct" element={<Construct/>}/>
+                    <Route path="/construct/updateTest" element={<UpdateTest/>}/>
                     <Route path="/construct/addQuestions" element={<AddQuestions/>}/>
+                    <Route path="/construct/updateQuestions" element={<UpdateQuestions/>}/>
                     <Route path="/construct/addResults" element={<AddResults/>}/>
+                    <Route path="/construct/updateResults" element={<UpdateResults/>}/>
                     <Route path="/construct/setPercents" element={<SetPercents/>}/>
+                    <Route path="/construct/updatePercents" element={<UpdatePercents/>}/>
                     <Route path="/lk" element={<Profile/>}/>
                     <Route path="/lk/update" element={<UpdateUser/>}/>
                     <Route path="/lk/res" element={<ProfileResult/>}/>

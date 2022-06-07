@@ -94,14 +94,14 @@ export default function SignUp() {
                                             onChange={updateRegState}
                                             fullWidth
                                             id="fullname"
-                                            label="ФИО"
+                                            label="Введите ФИО"
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
                                             required
                                             fullWidth
-                                            label="Логин"
+                                            label="Введите логин"
                                             name="nickname"
                                             onChange={updateRegState}
                                         />
@@ -111,7 +111,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             id="email"
-                                            label="Email"
+                                            label="Введите email"
                                             name="email"
                                             onChange={updateRegState}
                                             autoComplete="email"
@@ -122,7 +122,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             name="password"
-                                            label="Пароль"
+                                            label="Введите пароль"
                                             type="password"
                                             id="password"
                                             onChange={updateRegState}
