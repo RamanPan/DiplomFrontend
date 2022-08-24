@@ -6,7 +6,7 @@ import StarIcon from '@mui/icons-material/Star';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import Grid from "@mui/material/Grid";
 import {observer} from "mobx-react-lite";
-import {postReq} from "../utils/apiCalls";
+import {getReq} from "../utils/apiCalls";
 import {API_GET_USER_PICTURE} from "../utils/constans";
 import {useNavigate} from "react-router";
 import Button from "@mui/material/Button";
@@ -23,13 +23,13 @@ const TestCard = (props) => {
     let picture;
     useEffect(async () => {
         let author = props.author
-        picture = await postReq(API_GET_USER_PICTURE,{"author": author})
+        picture = await getReq(API_GET_USER_PICTURE, author)
         setAvatar(picture["picture"]);
 
     });
 
     const handlerButtonTestCard = () => {
-        testsStore.getTests({"id": props.id, "userId" : USER_ID}).then(r => {
+        testsStore.getTests({"id": props.id, "userId": USER_ID}).then(() => {
             console.log(testsStore.passingTest.id)
             PASSING_TEST = testsStore.passingTest;
             AVATAR = avatar;
@@ -38,39 +38,41 @@ const TestCard = (props) => {
 
     }
     const getMark = () => {
-        if(props.mark === 0) return "-";
+        if (props.mark === 0) return "-";
         else return props.mark.toFixed(1);
     }
 
     return (
         <div>
-            <Button onClick={handlerButtonTestCard} sx = {{mt:3,mr:2}}>
-            <Card sx={{ width: 310, height: 450, borderRadius: "15px",
-                // outline: "5px solid",outlineColor:"#9F4636",
-                backgroundColor: "#F1DCC9" }}>
-            <CardMedia
-                component="img"
-                height="200"
-                image={"http://localhost:8081/images/tests/" + props.picture}
-                sx = {{objectFit: "cover",}}
-            />
-            <CardContent sx = {{alignItems: 'flex-start',minHeight:210}}>
-                <Typography variant="h4" color="another" align="left">
-                    {props.tittle}
-                </Typography>
-                <Typography variant="body2" color="another" align="left">
-                    {props.description}
-                </Typography>
+            <Button onClick={handlerButtonTestCard} sx={{mt: 3, mr: 2}}>
+                <Card sx={{
+                    width: 310, height: 450, borderRadius: "15px",
+                    backgroundColor: "#F1DCC9"
+                }}>
+                    <CardMedia
+                        component="img"
+                        height="200"
+                        image={"http://localhost:8081/images/tests/" + props.picture}
+                        sx={{objectFit: "cover",}}
+                    />
+                    <CardContent sx={{alignItems: 'flex-start', minHeight: 210}}>
+                        <Typography variant="h4" color="another" align="left">
+                            {props.tittle}
+                        </Typography>
+                        <Typography variant="body2" color="another" align="left">
+                            {props.description}
+                        </Typography>
 
-            </CardContent>
-                <Grid container sx = {{ml: 2, display: 'flex',alignItems: 'flex-start',}}>
-                    <StarIcon /> {getMark()}
-                    <QuestionMarkIcon /> {props.numberQuestions}
-                    <Typography sx = {{ml:7,mr:1, fontSize:16,mt:0.4}}>{props.author}</Typography>
-                    <Avatar sx = {{fontSize:14,mr:0.3,mt:-0.5}} src={"http://localhost:8081/images/users/" + avatar}/>
-            </Grid>
+                    </CardContent>
+                    <Grid container sx={{ml: 2, display: 'flex', alignItems: 'flex-start',}}>
+                        <StarIcon/> {getMark()}
+                        <QuestionMarkIcon/> {props.numberQuestions}
+                        <Typography sx={{ml: 7, mr: 1, fontSize: 16, mt: 0.4}}>{props.author}</Typography>
+                        <Avatar sx={{fontSize: 14, mr: 0.3, mt: -0.5}}
+                                src={"http://localhost:8081/images/users/" + avatar}/>
+                    </Grid>
 
-        </Card>
+                </Card>
             </Button>
         </div>
     );

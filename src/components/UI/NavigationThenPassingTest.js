@@ -5,13 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import {useEffect} from "react";
 import Box from "@mui/material/Box";
 import {API_SET_MARK_USERS_TEST} from "../utils/constans";
 import {postReq} from "../utils/apiCalls";
 import {MARK} from "../pages/AfterTestPass";
 import {ID_USER_TEST} from "./ExtendedTestCard";
 import useStore from "../utils/useStore";
-import {useEffect} from "react";
 import {NICKNAME} from "../pages/SingInSide";
 
 
@@ -20,13 +20,15 @@ const NavigationThenPassingTest = (props) => {
     const {usersStore} = useStore();
 
     useEffect(() => {
-        if(NICKNAME === undefined) {navigate("/login"); }
+        if (NICKNAME === undefined) {
+            navigate("/login");
+        }
     });
 
 
     const handleExit = () => {
-        if(MARK !== undefined) {
-            postReq(API_SET_MARK_USERS_TEST,{"id":ID_USER_TEST,"mark":MARK}).then(r => {
+        if (MARK !== undefined) {
+            postReq(API_SET_MARK_USERS_TEST, {"id": ID_USER_TEST, "mark": MARK}).then(() => {
                 usersStore.needUser({"id": usersStore.me.id}).then()
             })
         }
@@ -36,14 +38,21 @@ const NavigationThenPassingTest = (props) => {
     return (
         <AppBar position="static" color="another">
             <Container maxWidth="xl">
-                <Toolbar disableGutters >
-                    <Box alignItems="center" sx={{ flexGrow: 1,justifyContent:"center",alignItems:"center",color:'#F1DCC9', display: { xs: 'none', md: 'flex' } }}>
-                        <Typography align="center" sx={{ ml: 12.5,fontSize: 24 }}>{props.name.toUpperCase()}</Typography>
+                <Toolbar disableGutters>
+                    <Box alignItems="center" sx={{
+                        flexGrow: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: '#F1DCC9',
+                        display: {xs: 'none', md: 'flex'}
+                    }}>
+                        <Typography align="center" sx={{ml: 12.5, fontSize: 24}}>{props.name.toUpperCase()}</Typography>
 
 
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                           <Button onClick={handleExit}><Typography sx = {{fontSize:24,color:'#F1DCC9',}}>Выйти</Typography></Button>
+                    <Box sx={{flexGrow: 0}}>
+                        <Button onClick={handleExit}><Typography
+                            sx={{fontSize: 24, color: '#F1DCC9',}}>Выйти</Typography></Button>
                     </Box>
                 </Toolbar>
             </Container>
@@ -51,7 +60,6 @@ const NavigationThenPassingTest = (props) => {
     );
 
 }
-
 
 
 export default NavigationThenPassingTest;

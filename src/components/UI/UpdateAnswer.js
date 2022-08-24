@@ -24,8 +24,8 @@ const UpdateAnswer = (props) => {
         const {value} = event.target;
         setStatement(value);
     }
-    const handleGavel= () => {
-        if(!agree) {
+    const handleGavel = () => {
+        if (!agree) {
             let obj = {
                 correctness,
                 statement,
@@ -37,9 +37,8 @@ const UpdateAnswer = (props) => {
                 id = response
                 setAgree(true)
             })
-        }
-        else {
-            deleteReq(API_DELETE_ANSWER,{"id":id}).then(response => {
+        } else {
+            deleteReq(API_DELETE_ANSWER, {"id": id}).then(() => {
                 setAgree(false)
             })
 
@@ -48,22 +47,24 @@ const UpdateAnswer = (props) => {
 
     return (
         <div>
-            <Typography  sx = {{mt:1}} align='left' variant='h5'>
+            <Typography sx={{mt: 1}} align='left' variant='h5'>
                 Ответ {props.answer.number}
             </Typography>
             <Grid container>
-                <TextField variant='outlined' defaultValue={props.answer.statement} align='left' size = 'small'  onChange={updateStatement} label = 'Введите текст ответа(до 100 символов)' sx = {{backgroundColor: '#FFFFFF',mt: 0.5, minWidth:600, borderRadius: "8px",}}
+                <TextField variant='outlined' defaultValue={props.answer.statement} align='left' size='small'
+                           onChange={updateStatement} label='Введите текст ответа(до 100 символов)'
+                           sx={{backgroundColor: '#FFFFFF', mt: 0.5, minWidth: 600, borderRadius: "8px",}}
                 />
                 {agree ? (<IconButton onClick={handleGavel}>
-                    <GavelIcon color = 'accept' id = 'gavel' sx = {{fontSize: 31}}/>
+                    <GavelIcon color='accept' id='gavel' sx={{fontSize: 31}}/>
                 </IconButton>) : (<IconButton onClick={handleGavel}>
-                    <GavelIcon color = 'primary' id = 'gavel' sx = {{fontSize: 31}}/>
-                </IconButton>) }
+                    <GavelIcon color='primary' id='gavel' sx={{fontSize: 31}}/>
+                </IconButton>)}
                 {correctness ? (<IconButton>
-                        <SquareIcon color = 'primary' onClick={changeCorrectness} sx = {{fontSize: 31}}/>
+                        <SquareIcon color='primary' onClick={changeCorrectness} sx={{fontSize: 31}}/>
                     </IconButton>)
-                    :(<IconButton>
-                        <CropSquareTwoToneIcon color = 'primary' onClick={changeCorrectness} sx = {{fontSize: 31}}/>
+                    : (<IconButton>
+                        <CropSquareTwoToneIcon color='primary' onClick={changeCorrectness} sx={{fontSize: 31}}/>
                     </IconButton>)}
             </Grid>
         </div>

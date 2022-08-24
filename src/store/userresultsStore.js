@@ -1,10 +1,9 @@
 import {cast, flow, types} from 'mobx-state-tree';
-import { postReq} from "../components/utils/apiCalls";
-import {API_GET_USERS_RESULTS
-} from "../components/utils/constans";
+import {postReq} from "../components/utils/apiCalls";
+import {API_GET_USERS_RESULTS} from "../components/utils/constans";
 
 const UserResult = types
-    .model('UserResult',{
+    .model('UserResult', {
         id: types.identifierNumber,
         created: types.string,
         header: types.string,
@@ -13,23 +12,19 @@ const UserResult = types
         picture: types.string,
         result: types.number,
         correctness: types.boolean,
-
-});
+    });
 
 const UserResultsStore = types
-    .model('UserResultsStore',{
-            userResults: types.array(UserResult)
+    .model('UserResultsStore', {
+        userResults: types.array(UserResult)
 
     })
     .actions(self => {
-        return{
+        return {
             getResultsByUser: flow(function* (data) {
-                let actual = yield postReq(API_GET_USERS_RESULTS,data);
+                let actual = yield postReq(API_GET_USERS_RESULTS, data);
                 self.userResults = cast(actual);
             }),
-
-
-
         }
     });
 

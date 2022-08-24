@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,13 +15,13 @@ import MenuItem from '@mui/material/MenuItem';
 import CreateIcon from '@mui/icons-material/Create';
 import GridViewIcon from '@mui/icons-material/GridView';
 import {pages} from "../utils/constans"
-import {  Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import useStore from "../utils/useStore";
 import {useNavigate} from "react-router";
-import {NICKNAME, PICTURE} from "../pages/SingInSide";
-import {useEffect, useState} from "react";
+import {PICTURE} from "../pages/SingInSide";
 import {PICTURE_UPDATE} from "../pages/UpdateUser";
+
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -30,10 +31,17 @@ const Navigation = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(usersStore.me === undefined) {navigate("/login"); return}
-        if(PICTURE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE)}
-        if(PICTURE_UPDATE !== " ") {setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)}
-        if(usersStore.me.role === "ROLE_STUDENT") setIsStudent(true);
+        if (usersStore.me === undefined) {
+            navigate("/login");
+            return
+        }
+        if (PICTURE !== " ") {
+            setPathPicture("http://localhost:8081/images/users/" + PICTURE)
+        }
+        if (PICTURE_UPDATE !== " ") {
+            setPathPicture("http://localhost:8081/images/users/" + PICTURE_UPDATE)
+        }
+        if (usersStore.me.role === "ROLE_STUDENT") setIsStudent(true);
     });
 
     const handleOpenNavMenu = (event) => {
@@ -58,17 +66,17 @@ const Navigation = () => {
     return (
         <AppBar position="static" color="another">
             <Container maxWidth="xl">
-                <Toolbar disableGutters >
+                <Toolbar disableGutters>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        sx={{mr: 2, display: {xs: 'none', md: 'flex'}}}
                     >
                         ПЁТР I
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -77,7 +85,7 @@ const Navigation = () => {
                             onClick={handleOpenNavMenu}
                             color="secondary"
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                         <Menu
                             id="menu-appbar"
@@ -94,7 +102,7 @@ const Navigation = () => {
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                display: {xs: 'block', md: 'none'},
                             }}
                         >
                             {pages.map((page) => (
@@ -108,39 +116,35 @@ const Navigation = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                        sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}
                     >ПЁТР I
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            <Button
-                                component={Link} to = '/catalog'
-                                sx={{ my: 2,mr: 5,ml: 2, color: '#F1DCC9', display: 'block' }}
-                            >
-                                <Grid container> <GridViewIcon sx={{ fontSize: 20,mt:0.55,mr: 1 }}/><Typography sx={{ fontSize: 20 }}>Каталог</Typography></Grid>
-                            </Button>
-                        {isStudent ?(<div/>):(<Button
-                                component={Link} to = '/construct'
-                                sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}
-                            >
-                                <Grid container> <CreateIcon sx={{ fontSize: 20,mt:0.5,mr: 1   }}/><Typography sx={{ fontSize: 20 }}> Конструктор</Typography></Grid>
-                            </Button>)}
-                            {/*<Button*/}
-                            {/*    onClick={{}}*/}
-                            {/*    sx={{ my: 2, mr: 5, color: '#F1DCC9', display: 'block' }}*/}
-                            {/*>*/}
-                            {/*    <Typography sx={{ fontSize: 20 }}> Топ</Typography>*/}
-                            {/*</Button>*/}
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                        <Button
+                            component={Link} to='/catalog'
+                            sx={{my: 2, mr: 5, ml: 2, color: '#F1DCC9', display: 'block'}}
+                        >
+                            <Grid container> <GridViewIcon sx={{fontSize: 20, mt: 0.55, mr: 1}}/><Typography
+                                sx={{fontSize: 20}}>Каталог</Typography></Grid>
+                        </Button>
+                        {isStudent ? (<div/>) : (<Button
+                            component={Link} to='/construct'
+                            sx={{my: 2, mr: 5, color: '#F1DCC9', display: 'block'}}
+                        >
+                            <Grid container> <CreateIcon sx={{fontSize: 20, mt: 0.5, mr: 1}}/><Typography
+                                sx={{fontSize: 20}}> Конструктор</Typography></Grid>
+                        </Button>)}
 
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Подробнее">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar src={pathPicture}/>
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px',  }}
+                            sx={{mt: '45px',}}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -155,14 +159,14 @@ const Navigation = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         ><Button
-                                component={Link} to ="/lk"
+                            component={Link} to="/lk"
 
-                            ><Typography sx={{  }}> Личный кабинет</Typography></Button>
+                        ><Typography sx={{}}> Личный кабинет</Typography></Button>
                             <Grid container>
-                            <Button sx = {{}}
-                                    onClick={handleSubmit}
+                                <Button sx={{}}
+                                        onClick={handleSubmit}
                                 >
-                                <Typography sx={{  }}> Выйти</Typography>
+                                    <Typography sx={{}}> Выйти</Typography>
                                 </Button>
                             </Grid>
                         </Menu>

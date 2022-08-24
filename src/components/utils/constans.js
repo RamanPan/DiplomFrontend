@@ -17,7 +17,6 @@ export const API_SET_PERCENTS_QUESTIONS = 'http://localhost:8081/api/tests/setPe
 export const API_GET_TESTS_BY_AUTHOR = 'http://localhost:8081/api/tests/getByAuthor';
 export const API_GET_FILTER_TESTS = 'http://localhost:8081/api/tests/getFilterTests';
 export const API_GET_USERS_RESULTS = 'http://localhost:8081/api/usersResults/getResults';
-// export const API_GET_USER_RESULT = 'http://localhost:8081/api/usersResults/getResult';
 export const API_CREATE_TEST = 'http://localhost:8081/api/tests/create';
 export const API_UPDATE_TEST = 'http://localhost:8081/api/tests/update';
 export const API_DELETE_TEST = 'http://localhost:8081/api/tests/delete';
@@ -49,9 +48,9 @@ export const API_SET_USER_TEST_PASSED = 'http://localhost:8081/api/usersTests/se
 
 export const roles = ['Студент', 'Преподаватель'];
 export const pages = ['Каталог', 'Конструктор', 'Топ'];
-export const settings = ['Личный кабинет','Выход'];
-export const types = ['Стохастический','Детерминированный','Динамический','Любой'];
-export const typesConstruct = ['Стохастический','Детерминированный','Динамический'];
+export const settings = ['Личный кабинет', 'Выход'];
+export const types = ['Стохастический', 'Детерминированный', 'Динамический', 'Любой'];
+export const typesConstruct = ['Стохастический', 'Детерминированный', 'Динамический'];
 export const deterministicOptions = [
     'Неопределена',
     'Легкие, Средние, Сложные',
@@ -66,19 +65,7 @@ export const deterministicOptions = [
     'Экономические, Культурные, Политические',
     'Культурные, Экономические, Политические',
     'Культурные, Политические, Экономические',
-    ];
-export const questionTypes = ['Закрытый','Открытый'];
-export const questionDifficulties = ['Легкая','Средняя','Сложная'];
-export const questionCategories = ['Политическая','Культурная','Экономическая'];
-
-
-export const NAME_MIN_LENGTH = 4;
-export const NAME_MAX_LENGTH = 40;
-
-export const USERNAME_MIN_LENGTH = 3;
-export const USERNAME_MAX_LENGTH = 15;
-
-export const EMAIL_MAX_LENGTH = 40;
-
-export const PASSWORD_MIN_LENGTH = 6;
-export const PASSWORD_MAX_LENGTH = 20;
+];
+export const questionTypes = ['Закрытый', 'Открытый'];
+export const questionDifficulties = ['Легкая', 'Средняя', 'Сложная'];
+export const questionCategories = ['Политическая', 'Культурная', 'Экономическая'];

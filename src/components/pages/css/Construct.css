@@ -2,13 +2,16 @@
     width: 300px;
     height: 300px;
 }
+
 *::-webkit-scrollbar {
     width: 14px;
 }
+
 *::-webkit-scrollbar-track {
     background: #FFFFFF;
     background-clip: content-box;
 }
+
 *::-webkit-scrollbar-thumb {
     background-color: #9F4636;
     /*background: linear-gradient(to bottom, #9F4636 0%, #FFFFFF 100%);*/

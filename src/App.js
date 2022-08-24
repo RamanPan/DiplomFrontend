@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SignInSide from "./components/pages/SingInSide";
 import SignUpSide from "./components/pages/SingUpSide";
 import Catalog from "./components/pages/Catalog";
@@ -24,40 +24,29 @@ import UpdatePercents from "./components/pages/UpdatePercents";
 
 const App = () => {
     return (
-    <div className="App">
-            {/*<Route exact path="/"*/}
-            {/*       render={(props) => <PollList isAuthenticated={this.state.isAuthenticated}*/}
-            {/*                                    currentUser={this.state.currentUser} handleLogout={this.handleLogout} {...props} />}>*/}
-            {/*</Route>*/}
-            {/*<Route path="/login"*/}
-            {/*       render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>*/}
-               <BrowserRouter><Routes> <Route path="/registration" element={<SignUpSide/>}/>
-                    <Route path="/login" element={<SignInSide/>}/>
-                    <Route path="/forgot" element={<ChangePassword/>}/>
-                    <Route path="/catalog" element={<Catalog/>}/>
-                    <Route path="/catalog/startTestPass" element={<BeforeTestPass/>}/>
-                    <Route path="/catalog/testPass" element={<PassingTest/>}/>
-                    <Route path="/catalog/endTestPass" element={<AfterTestPass/>}/>
-                    <Route path="/construct" element={<Construct/>}/>
-                    <Route path="/construct/updateTest" element={<UpdateTest/>}/>
-                    <Route path="/construct/addQuestions" element={<AddQuestions/>}/>
-                    <Route path="/construct/updateQuestions" element={<UpdateQuestions/>}/>
-                    <Route path="/construct/addResults" element={<AddResults/>}/>
-                    <Route path="/construct/updateResults" element={<UpdateResults/>}/>
-                    <Route path="/construct/setPercents" element={<SetPercents/>}/>
-                    <Route path="/construct/updatePercents" element={<UpdatePercents/>}/>
-                    <Route path="/lk" element={<Profile/>}/>
-                    <Route path="/lk/update" element={<UpdateUser/>}/>
-                    <Route path="/lk/res" element={<ProfileResult/>}/>
-                   <Route path="/lk/tests" element={<ProfileTest/>}/>
-               </Routes></BrowserRouter>
-
-
-            {/*<Route path="/users/:username"*/}
-            {/*       render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props}  />}>*/}
-            {/*</Route>*/}
-    </div>
-  );
+        <div className="App">
+            <BrowserRouter><Routes> <Route path="/registration" element={<SignUpSide/>}/>
+                <Route path="/login" element={<SignInSide/>}/>
+                <Route path="/forgot" element={<ChangePassword/>}/>
+                <Route path="/catalog" element={<Catalog/>}/>
+                <Route path="/catalog/startTestPass" element={<BeforeTestPass/>}/>
+                <Route path="/catalog/testPass" element={<PassingTest/>}/>
+                <Route path="/catalog/endTestPass" element={<AfterTestPass/>}/>
+                <Route path="/construct" element={<Construct/>}/>
+                <Route path="/construct/updateTest" element={<UpdateTest/>}/>
+                <Route path="/construct/addQuestions" element={<AddQuestions/>}/>
+                <Route path="/construct/updateQuestions" element={<UpdateQuestions/>}/>
+                <Route path="/construct/addResults" element={<AddResults/>}/>
+                <Route path="/construct/updateResults" element={<UpdateResults/>}/>
+                <Route path="/construct/setPercents" element={<SetPercents/>}/>
+                <Route path="/construct/updatePercents" element={<UpdatePercents/>}/>
+                <Route path="/lk" element={<Profile/>}/>
+                <Route path="/lk/update" element={<UpdateUser/>}/>
+                <Route path="/lk/res" element={<ProfileResult/>}/>
+                <Route path="/lk/tests" element={<ProfileTest/>}/>
+            </Routes></BrowserRouter>
+        </div>
+    );
 }
 
 export default observer(App);

@@ -4,25 +4,26 @@ import Navigation from "../UI/Navigation";
 import ExtendedTestCard from "../UI/ExtendedTestCard";
 import useStore from "../utils/useStore";
 import Grid from "@mui/material/Grid";
-import {NICKNAME} from "./SingInSide";
 import {useNavigate} from "react-router";
 import {PASSING_TEST} from "../UI/TestCard";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export var VARIANTS_ANSWER = [];
 export var BOO;
 const BeforeTestPass = () => {
     const navigate = useNavigate();
-    const {questionStore,answerStore} = useStore();
+    const {questionStore, answerStore} = useStore();
     useEffect(() => {
         console.log(PASSING_TEST)
-         {  BOO = false;
-             questionStore.birth({"id":0}).then(r =>{
-             if(questionStore.passQuestion.type === "OPEN") {BOO = true;}
-             answerStore.birth({"id":questionStore.passQuestion.id}).then(r => {
-             })
-         })
+        {
+            BOO = false;
+            questionStore.birth({"id": 0}).then(() => {
+                if (questionStore.passQuestion.type === "OPEN") {
+                    BOO = true;
+                }
+                answerStore.birth({"id": questionStore.passQuestion.id}).then(() => {
+                })
+            })
         }
     });
 
@@ -39,20 +40,22 @@ const BeforeTestPass = () => {
                       maxWidth: '500vh',
                       maxHeight: '300vh',
                       alignItems: 'center',
-                      justifyContent:'center',
+                      justifyContent: 'center',
                       alignSelf: 'center',
                       backgroundPosition: 'center',
-                      display: 'flex'}}>
-                <Grid container sx = {{justifyContent:'center',mt:"20px",width:600,display:'flex'}}>
-                    <Grid container sx = {{justifyContent:'left'}}><Button onClick={handleBack} variant = "text"><ArrowBackIcon/>Назад</Button> </Grid>
-                    <Grid><ExtendedTestCard test = {PASSING_TEST}/> </Grid>
-            </Grid>
+                      display: 'flex'
+                  }}>
+                <Grid container sx={{justifyContent: 'center', mt: "20px", width: 600, display: 'flex'}}>
+                    <Grid container sx={{justifyContent: 'left'}}><Button onClick={handleBack}
+                                                                          variant="text"><ArrowBackIcon/>Назад</Button>
+                    </Grid>
+                    <Grid><ExtendedTestCard test={PASSING_TEST}/> </Grid>
+                </Grid>
             </Grid>
 
         </div>
     )
 }
-
 
 
 export default observer(BeforeTestPass);

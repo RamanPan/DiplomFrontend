@@ -11,10 +11,10 @@ export const StoreContext = createContext(store);
 ReactDOM.render(
     <React.StrictMode>
         <StoreContext.Provider value={store}>
-        <ThemeProvider theme={themeMy}>
-            <CssBaseline/>
-            <App />
-        </ThemeProvider>
+            <ThemeProvider theme={themeMy}>
+                <CssBaseline/>
+                <App/>
+            </ThemeProvider>
         </StoreContext.Provider>
     </React.StrictMode>,
     document.getElementById('root')

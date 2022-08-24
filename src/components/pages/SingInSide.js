@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,17 +9,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { ThemeProvider} from '@mui/material/styles';
+import {ThemeProvider} from '@mui/material/styles';
 import Image from '../../resources/fon.jpeg'
 import themeMy from "../utils/themeMy";
 import {Link} from "react-router-dom";
 
 import {observer} from "mobx-react-lite";
 import useStore from "../utils/useStore";
-import {useState} from "react";
 import {useNavigate} from "react-router";
-
-
 
 
 export var ACCESS_TOKEN;
@@ -26,7 +24,6 @@ export var NICKNAME = undefined;
 export var PICTURE = " ";
 export var PASSWORD;
 export var USER_ID;
-export var TRUE_OR_FALSE = false;
 function SignInSide() {
     const {usersStore} = useStore();
     const [logState,setLogState] = useState();
@@ -103,16 +100,12 @@ function SignInSide() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            {/*<FormControlLabel*/}
-                            {/*    control={<Checkbox value="remember" color="primary" />}*/}
-                            {/*    label="Remember me"*/}
-                            {/*/>*/}
                             <Button
                                 onClick={handleSubmit}
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                sx={{ mt: 2, mb: 1 }}
+                                sx={{mt: 2, mb: 1}}
                             >
                                 Войти
                             </Button>

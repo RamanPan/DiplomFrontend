@@ -4,7 +4,7 @@ import {API_ACTUAL_USER, API_LOGIN, API_LOGOUT} from "../components/utils/consta
 import {ACCESS_TOKEN} from "../components/pages/SingInSide";
 
 export const User = types
-    .model('User',{
+    .model('User', {
         id: types.identifierNumber,
         date_register: types.Date,
         nickname: types.string,
@@ -14,14 +14,13 @@ export const User = types
         description: types.maybe(types.string),
         picture: types.maybe(types.string),
     })
-    .actions(self => {
-        return{
-        }
+    .actions(() => {
+        return {}
     })
 ;
 
 export const ActualUser = types
-    .model('ActualUser',{
+    .model('ActualUser', {
         id: types.identifierNumber,
         created: types.string,
         nickname: types.string,
@@ -38,24 +37,23 @@ export const ActualUser = types
 ;
 
 
-
 const UsersStore = types
-    .model('UsersStore',{
+    .model('UsersStore', {
         users: types.array(User),
         me: types.maybe(ActualUser)
 
     })
     .actions(self => {
-        return{
+        return {
             login: flow(function* (data) {
                 self.me = yield postReq(API_LOGIN, data)
             }),
             exit: flow(function* () {
-                let i = yield getReq(API_LOGOUT);
+                yield getReq(API_LOGOUT);
                 self.me = undefined
             }),
             needUser: flow(function* (data) {
-                let actual = yield postReq(API_ACTUAL_USER,data);
+                let actual = yield getReq(API_ACTUAL_USER, data);
                 actual["token"] = ACCESS_TOKEN;
                 console.log(actual)
                 self.me = actual;
